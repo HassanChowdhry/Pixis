@@ -1,12 +1,17 @@
 import './UserProfile.css';
+import photo from '../Images/Hassan-Picture.jpg'
 
 function UserProfile() {
   
+  const onClickHandler = () => {
+    alert('add modal');
+  }
+
   return (
     <div className = "profile">
-      <img src="" alt="" />
+      <img src={photo} alt="" onClick={onClickHandler} />
 
-      <strong> Hassan Chowdhry </strong>
+      <strong> Hassan  </strong>
       <span> I am a cool boi </span>
     </div>
   )

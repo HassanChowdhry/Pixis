@@ -1,11 +1,12 @@
 import './Photos.css';
 
-function Photos() {
+
+function Photos(props) {
 
   return (
-    <div>
-
-    </div>
+    <figure className = "frame">
+      <img src={props.source} alt="" className="image"/>
+    </figure>
   )
 }
 

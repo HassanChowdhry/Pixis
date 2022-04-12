@@ -1,11 +1,16 @@
+import UserProfile from './components/UserProfile';
+import Photos from './components/Photos';
+import ImageArray from './components/Images';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Hello World</p>
-      </header>
+      
+      <UserProfile />
+      {ImageArray.map((image) => <Photos source={image} />)}
+      
+    
     </div>
   );
 }
