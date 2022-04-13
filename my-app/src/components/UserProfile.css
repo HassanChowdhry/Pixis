@@ -1,16 +1,33 @@
 .profile {
-
+  text-align: center;
+  margin: 5rem 0;
+  display: grid;
+  justify-items: center;
+  grid-row-gap: 0.5rem;
 }
 
-.profile img {
+.image-container {
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
   border-radius: 50%;
-  width: 10%;
+  width: 30vh;
+  transition: transform .5s ease;
+}
+
+.image-container img:hover {
+  transform: scale(1.5);
+
 }
 
 .profile strong{ 
-
+font-size: large;
 }
 
 .profile span {
-
+font-size: medium;
+line-height: 1.5;
+width: 50vw;
 }
