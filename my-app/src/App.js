@@ -9,7 +9,7 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-     async function fetchData() {
+     
       let myHeaders = new Headers();
       myHeaders.append("Origin", "https://localhost.com");
       
@@ -19,12 +19,11 @@ function App() {
         redirect: 'follow'
       };
 
-      let response = await fetch("https://image-gallery-pjks.s3.ca-central-1.amazonaws.com/data.json", requestOptions)
-      response = await response.json();
-      setData(response);
-    }
+      fetch("https://image-gallery-pjks.s3.ca-central-1.amazonaws.com/data.json", requestOptions)
+       .then(response => response.json())
+       .catch(() => console.log('error'))
+       .then((response) => setData(response)); 
 
-    fetchData();
   }, []);
 
   return (
