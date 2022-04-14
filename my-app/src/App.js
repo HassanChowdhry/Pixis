@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import UserProfile from "./components/UserProfile";
-import Photos from "./components/Photos";
+import UserProfile from "./components/User/UserProfile";
+import Photos from "./components/gallery/Photos";
 import "./App.css";
 
 function App() {
