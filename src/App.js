@@ -21,7 +21,7 @@ function App() {
 
       fetch("https://image-gallery-pjks.s3.ca-central-1.amazonaws.com/data.json", requestOptions)
        .then(response => response.json())
-       .catch(() => console.log('error'))
+       .catch(() => console.log('add backup data'))
        .then((response) => setData(response)); 
 
   }, []);
