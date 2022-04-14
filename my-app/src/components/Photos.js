@@ -15,11 +15,12 @@ function Photos(props) {
       <Image
         src={props.source}
         alt={props.alt}
+        location = {props.location}
         onClick={toggleModal}
       />
 
       {modal && (
-        <Modal src={props.source} alt={props.alt} onClick={toggleModal} />
+        <Modal src={props.source} location = {props.location} description = {props.description} alt={props.alt} onClick={toggleModal} />
       )}
     </div>
   );

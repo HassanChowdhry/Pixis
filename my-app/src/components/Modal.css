@@ -18,7 +18,20 @@
   height: 70vh;
 }
 
-.modal-content, .caption {
+.location {
+  display: inline-flex;
+  width: 50%;
+  justify-content: right;
+  font-size: smaller;
+  color: #FEF5ED;
+}
+
+.caption {
+  margin-top: 0.5rem;
+  color: #FEF5ED;
+}
+
+.modal-content, .caption, .location {
   animation-name: zoom;
   animation-duration: 0.6s;
 }
