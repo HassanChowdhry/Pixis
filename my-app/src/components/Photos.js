@@ -3,7 +3,7 @@ import './Photos.css';
 
 function Photos(props) {
   const onClickHandler = () => {
-    alert(props.alt)
+
   }
 
   return (
