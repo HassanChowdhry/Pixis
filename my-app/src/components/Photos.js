@@ -1,16 +1,28 @@
-import './Photos.css';
-
+import { useState } from "react";
+import Modal from "./Modal";
+import Image from "./Image";
+import "./Photos.css";
 
 function Photos(props) {
-  const onClickHandler = () => {
+  const [modal, setModal] = useState(false);
 
-  }
+  const toggleModal = () => {
+    setModal(!modal);
+  };
 
   return (
-    <figure className = "frame">
-      <img src={props.source} alt={props.alt} className="image" onClick = {onClickHandler} />
-    </figure>
-  )
+    <div className="box">
+      <Image
+        src={props.source}
+        alt={props.alt}
+        onClick={toggleModal}
+      />
+
+      {modal && (
+        <Modal src={props.source} alt={props.alt} onClick={toggleModal} />
+      )}
+    </div>
+  );
 }
 
 export default Photos;

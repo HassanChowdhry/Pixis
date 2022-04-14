@@ -1,0 +1,17 @@
+.frame {
+  border: 5px grey solid;
+  margin: 0.5rem;
+  padding: 0;
+  overflow: hidden;
+
+}
+
+.frame img{
+  width: 15rem;
+  height: 10rem;
+  transition: transform .5s ease;
+}
+
+.frame img:hover {
+  transform: scale(1.5);
+}
