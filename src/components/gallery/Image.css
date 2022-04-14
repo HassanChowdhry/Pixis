@@ -1,6 +1,5 @@
 .frame {
-  display: inline-block;
-  border: 5px grey solid;
+  border: 5px #203239 solid;
   margin: 0.5rem;
   padding: 0;
   overflow: hidden;
