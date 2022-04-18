@@ -9,5 +9,5 @@ A website for preserving your favorite photos, complete with a separate template
 - CSS
 - Javascript
 - React
-- 
+
 <hr>
