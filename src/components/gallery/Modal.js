@@ -3,7 +3,8 @@ import "./Modal.css";
 function Modal(props) {
   return (
     <div className="modal">
-    
+      <div onClick={props.onClick} className="overlay" />
+
       <span className="close" onClick={props.onClick}>
         &times;
       </span>

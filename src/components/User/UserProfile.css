@@ -15,6 +15,7 @@
   border-radius: 50%;
   width: 30vh;
   transition: transform .5s ease;
+  cursor: pointer;
 }
 
 .image-container img:hover {
