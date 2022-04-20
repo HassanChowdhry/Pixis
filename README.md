@@ -12,4 +12,6 @@ A website for preserving your favorite photos, complete with a separate template
 
 <hr>
 
+### Here is the Link to the Website:
+
 [Link to Website](https://hassanchowdhry.github.io/PhotoGallery-V2/)
