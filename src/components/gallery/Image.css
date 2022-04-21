@@ -10,6 +10,7 @@
   width: 15rem;
   height: 10rem;
   transition: transform .5s ease;
+  cursor: pointer;
 }
 
 .frame img:hover {
