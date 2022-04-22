@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import "./Modal.css";
 
 function Modal(props) {
   return (
+    <id>
     <div className="modal">
       <div onClick={props.onClick} className="overlay" />
 
@@ -11,6 +13,7 @@ function Modal(props) {
 
       <div className="location"> {props.location} </div>
 
+      
       <img
         src={props.src}
         alt={props.alt}
@@ -18,9 +21,11 @@ function Modal(props) {
         className="modal-content"
         onClick={props.onClick}
       />
+      
 
       <div className="caption"> {props.description} </div>
     </div>
+    </id>
   );
 }
 

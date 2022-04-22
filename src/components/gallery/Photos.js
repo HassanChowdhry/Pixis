@@ -1,4 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import Modal from "./Modal";
 import Image from "./Image";
 import "./Photos.css";
@@ -12,16 +14,24 @@ function Photos(props) {
 
   return (
     <div className="box">
-      <Image
-        src={props.source}
-        alt={props.alt}
-        location = {props.location}
-        onClick={toggleModal}
-      />
+      <Link to={{ pathname: `/picture/${props.id}`, state : { src: props.source, alt:props.alt, id: props.id, title: props.location } }} >
+        <Image
+          src={props.source}
+          alt={props.alt}
+          location={props.location}
+          onClick={toggleModal}
+        />
+      </Link>
 
-      {modal && (
-        <Modal src={props.source} location = {props.location} description = {props.description} alt={props.alt} onClick={toggleModal} />
-      )}
+      {/* {modal && (
+            <Modal
+              src={props.source}
+              location={props.location}
+              description={props.description}
+              alt={props.alt}
+              onClick={toggleModal}
+            />
+          )} */}
     </div>
   );
 }
