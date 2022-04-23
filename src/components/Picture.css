@@ -1,6 +1,7 @@
 .template {
   margin-top: 0.8rem;
   color: #FEF5ED;
+  overflow-y: auto;
 }
 .img-container {
   display: flex;
@@ -11,6 +12,7 @@
   border: 5px #203239 solid;
   margin: 0.3rem;
   width: 55vw;
+  height: 75vh;
   min-width: 300px;
   padding: 0;
   overflow: hidden;
@@ -45,4 +47,36 @@
   min-width: 300px;
   justify-content: center;
   text-align: center;
+}
+
+@media only screen and (max-width: 800px){
+
+  .template {
+    padding-top: 7rem;
+  }
+  
+  .figure {
+    height: 45vh;
+  }
+
+  .figure, .place, .description {
+    width: 75vw;
+  }
+
+}
+
+@media only screen and (max-width: 400px){
+
+  .template {
+    padding-top: 10rem;
+  }
+  
+  .figure {
+    height: 35vh;
+  }
+
+  .figure, .place, .description {
+    width: 90vw;
+  }
+
 }

@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     let myHeaders = new Headers();
-    myHeaders.append("Origin", "https://localhost.com");
+    myHeaders.append("Origin", window.origin);
 
     let requestOptions = {
       method: "GET",
@@ -37,7 +37,7 @@ function App() {
 
       <Route path='/gallery'>
 
-        <div className="App">
+        <div className="app">
           <UserProfile />
 
           {data &&
