@@ -31,7 +31,7 @@ function App() {
   return (
     <React.Fragment>
 
-      <Route path='/' exact> 
+      <Route path='/PhotoGallery-V2' exact> 
         <Redirect to='gallery' />
       </Route>
 
@@ -55,7 +55,7 @@ function App() {
       </Route>
 
       <Route path='/picture/:id'>
-          {data && <Picture data={data}/>}
+         <Picture />
       </Route>
 
     </React.Fragment>

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 import Modal from "./Modal";
 import Image from "./Image";
@@ -12,26 +11,36 @@ function Photos(props) {
     setModal(!modal);
   };
 
+  useEffect(() => {
+    if (modal) {
+      document.body.style.overflow = 'hidden';
+    
+    } else {
+      document.body.style.overflow = 'scroll';
+    }
+
+ }, [modal ]);
+
   return (
     <div className="box">
-      <Link to={{ pathname: `/picture/${props.id}`, state : { src: props.source, alt:props.alt, id: props.id, title: props.location } }} >
+    
         <Image
           src={props.source}
           alt={props.alt}
           location={props.location}
           onClick={toggleModal}
         />
-      </Link>
 
-      {/* {modal && (
+      {modal && (
             <Modal
               src={props.source}
               location={props.location}
               description={props.description}
+              id = {props.id}
               alt={props.alt}
               onClick={toggleModal}
             />
-          )} */}
+          )}
     </div>
   );
 }
