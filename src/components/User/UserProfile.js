@@ -1,5 +1,5 @@
 import "./UserProfile.css";
-import photo from "../../Images/Hassan-Picture.jpg";
+import photo from "../../assets/Hassan-Picture.jpg";
 
 function UserProfile() {
   const onClickHandler = () => {
@@ -9,7 +9,7 @@ function UserProfile() {
   return (
     <div className="profile">
       <div className="image-container">
-        <img src={photo} alt="" onClick={onClickHandler} />
+        <img src={photo} alt="myProfilePicture" title="My Portfolio" onClick={onClickHandler} />
       </div>
 
       <strong> Hassan Chowdhry</strong>

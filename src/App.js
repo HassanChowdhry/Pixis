@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 
 import UserProfile from "./components/User/UserProfile";
 import Photos from "./components/gallery/Photos";
-import Picture from "./components/Picture";
+import Picture from "./components/UI/Picture";
 import "./App.css";
 
 function App() {
@@ -31,6 +31,10 @@ function App() {
   return (
     <React.Fragment>
 
+      <Route path='/' exact> 
+        <Redirect to='gallery' />
+      </Route>
+      
       <Route path='/PhotoGallery-V2' exact> 
         <Redirect to='gallery' />
       </Route>
@@ -55,7 +59,7 @@ function App() {
       </Route>
 
       <Route path='/picture/:id'>
-         <Picture />
+         {data && <Picture data={data} />}
       </Route>
 
     </React.Fragment>
