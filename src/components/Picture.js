@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 function Picture() {
   const { id } = useParams();
   const data = useContext(DataContext);
-  const pictureMetaData = data && data.find((dataItem) => dataItem.id === Number(id));
+  const pictureMetaData = data ? data.find((dataItem) => dataItem.id === Number(id)) : {}
 
   if(!pictureMetaData) {
     return <Redirect to="/PhotoGallery-V2"/>
@@ -15,10 +15,8 @@ function Picture() {
 
   const { url, alt, location, descreption } = pictureMetaData ?? {};
 
-
-
   return (
-    pictureMetaData && 
+    pictureMetaData?.url  && 
     <div className="template">
 
       <div className="place"> {location} </div>
