@@ -1,28 +1,39 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { DataContext } from '../App'
+import { useContext } from 'react';
 import "./Picture.css";
+import { Redirect } from "react-router-dom";
 
-function Picture(props) {
-  const location = useLocation();
-  const { id, src, alt, title, caption } = location.state;
+function Picture() {
+  const { id } = useParams();
+  const data = useContext(DataContext);
+  const pictureMetaData = data && data.find((dataItem) => dataItem.id === Number(id));
 
-  console.log(id, src, alt, title);
+  if(!pictureMetaData) {
+    return <Redirect to="/PhotoGallery-V2"/>
+  }
+
+  const { url, alt, location, descreption } = pictureMetaData ?? {};
+
+
 
   return (
+    pictureMetaData && 
     <div className="template">
 
-      <div className="place"> {title} </div>
+      <div className="place"> {location} </div>
 
       <div className="img-container">  
       
         <figure className="figure">
           <Link to="/gallery">
-            <img src={src} alt={alt} id={id} title="Return to gallery" />
+            <img src={url} alt={alt} id={id} title="Return to gallery" />
           </Link>
         </figure>
       
         </div>
 
-        <div className="description"> {caption} </div>
+        <div className="description"> {descreption} </div>
     </div>
   );
 }
