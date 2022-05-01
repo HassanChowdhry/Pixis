@@ -7,8 +7,8 @@
 }
 
 .frame img{
-  width: 15rem;
-  height: 10rem;
+  width: 16rem;
+  height: 12rem;
   transition: transform .5s ease;
   cursor: pointer;
 }
