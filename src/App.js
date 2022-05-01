@@ -6,6 +6,8 @@ import Photos from "./components/gallery/Photos";
 import Picture from "./components/Picture";
 import "./App.css";
 
+export const DataContext = React.createContext();
+
 function App() {
   const [data, setData] = useState(null);
 
@@ -29,7 +31,7 @@ function App() {
   }, []);
 
   return (
-    <React.Fragment>
+    <DataContext.Provider value={data}>
 
       <Route path='/PhotoGallery-V2' exact> 
         <Redirect to='gallery' />
@@ -48,7 +50,7 @@ function App() {
                 description={image.descreption}
                 alt={`Photo-${image.id}`}
                 id = {image.id}
-                key={Math.random()}
+                key={image.id}
               />
             ))}
         </div>
@@ -58,7 +60,7 @@ function App() {
          <Picture />
       </Route>
 
-    </React.Fragment>
+    </DataContext.Provider>
   );
 }
 
