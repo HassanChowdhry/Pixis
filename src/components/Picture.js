@@ -10,7 +10,7 @@ function Picture() {
   const pictureMetaData = data ? data.find((dataItem) => dataItem.id === Number(id)) : {}
 
   if(!pictureMetaData) {
-    return <Redirect to="/PhotoGallery-V2"/>
+    return <Redirect to="/"/>
   }
 
   const { url, alt, location, descreption } = pictureMetaData ?? {};

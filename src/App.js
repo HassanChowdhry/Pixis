@@ -33,7 +33,7 @@ function App() {
   return (
     <DataContext.Provider value={data}>
 
-      <Route path='/PhotoGallery-V2' exact> 
+      <Route path='/' exact> 
         <Redirect to='gallery' />
       </Route>
 
