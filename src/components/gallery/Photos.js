@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import Modal from "./Modal";
-import Image from "./Image";
+import Modal from "./Modal.js";
+import Image from "./Image.js";
 import "./Photos.css";
 
 function Photos(props) {

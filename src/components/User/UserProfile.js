@@ -1,9 +1,9 @@
 import "./UserProfile.css";
-import photo from "../../Images/Hassan-Picture.jpg";
+import photo from "../../Images/picture.jpeg";
 
 function UserProfile() {
   const onClickHandler = () => {
-    window.open("https://hassanchowdhry.github.io/Portfolio/", "_blank")
+    window.open("https://portfolio-729d5.web.app/about", "_blank")
   };
 
   return (

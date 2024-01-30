@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import UserProfile from "./components/User/UserProfile";
-import Photos from "./components/gallery/Photos";
-import Picture from "./components/Picture";
+import UserProfile from "./components/User/UserProfile.js";
+import Photos from "./components/gallery/Photos.js";
+import Picture from "./components/Picture.js";
 import "./App.css";
 
 export const DataContext = React.createContext();
@@ -27,7 +27,9 @@ function App() {
     )
       .then((response) => response.json())
       .catch(() => console.log("add backup data"))
-      .then((response) => setData(response));
+      .then((response) => {
+        setData(response);
+        })
   }, []);
 
   return (
