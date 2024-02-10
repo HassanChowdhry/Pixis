@@ -30,7 +30,6 @@ function App() {
       .catch(() => console.log("add backup data"))
       .then((response) => {
         setData(response);
-        console.log(response);
         })
   }, []);
 

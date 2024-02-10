@@ -29,8 +29,3 @@ export async function createPhoto(source, location, description) {
   const id = res.insertId;
   return getPhoto(id);
 }
-
-// console.log(await getPhotos());
-// const res = await createNote('note5', 'Yahoo THIS IS fifth NOTE');
-// console.log(res);
-// console.log(await getNote(3));
