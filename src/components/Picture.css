@@ -1,5 +1,5 @@
 .template {
-  margin-top: 0.8rem;
+  margin-top: 1.5rem;
   color: #FEF5ED;
   overflow-y: auto;
 }
@@ -11,8 +11,7 @@
 .figure {
   border: 5px #203239 solid;
   margin: 0.3rem;
-  width: 55vw;
-  height: 75vh;
+  width: 65%;
   min-width: 300px;
   padding: 0;
   overflow: hidden;
@@ -34,7 +33,7 @@
 .place {
   display: flex;
   margin: auto;
-  width: 55%;
+  width: 65%;
   min-width: 300px;
   justify-content: right;
   font-size: smaller;
@@ -43,7 +42,6 @@
 .description {
   display: flex;
   margin: auto;
-  width: 55%;
   min-width: 300px;
   justify-content: center;
   text-align: center;

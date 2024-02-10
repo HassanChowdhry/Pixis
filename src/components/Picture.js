@@ -13,25 +13,23 @@ function Picture() {
     return <Redirect to="/"/>
   }
 
-  const { url, alt, location, descreption } = pictureMetaData ?? {};
+  const { source, alt, location, description } = pictureMetaData ?? {};
 
   return (
-    pictureMetaData?.url  && 
+    pictureMetaData?.source  && 
     <div className="template">
 
-      <div className="place"> {location} </div>
+        <div className="place"> {location} </div>
 
-      <div className="img-container">  
-      
-        <figure className="figure">
-          <Link to="/gallery">
-            <img src={url} alt={alt} id={id} title="Return to gallery" />
-          </Link>
-        </figure>
-      
+        <div className="img-container">  
+          <figure className="figure">
+            <Link to="/gallery">
+              <img src={source} alt={alt} id={id} title="Return to gallery" />
+            </Link>
+          </figure>
         </div>
 
-        <div className="description"> {descreption} </div>
+        <div className="description"> {description} </div>
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import UserProfile from "./components/User/UserProfile.js";
-import Photos from "./components/gallery/Photos.js";
-import Picture from "./components/Picture.js";
+import UserProfile from "./Components/User/UserProfile.js";
+import Photos from "./Components/Gallery/Photos.js";
+import Picture from "./Components/Picture.js";
 import "./App.css";
+import NewPhotoTemplate from "./Components/CreatePhoto/NewPhotoTemplate.js";
 
 export const DataContext = React.createContext();
 
@@ -22,13 +23,14 @@ function App() {
     };
 
     fetch(
-      "https://image-gallery-pjks.s3.ca-central-1.amazonaws.com/data.json",
+      "http://localhost:8080/api/photos",
       requestOptions
     )
       .then((response) => response.json())
       .catch(() => console.log("add backup data"))
       .then((response) => {
         setData(response);
+        console.log(response);
         })
   }, []);
 
@@ -47,14 +49,16 @@ function App() {
           {data &&
             data.map((image) => (
               <Photos
-                source={image.url}
+                source={image.source}
                 location={image.location}
-                description={image.descreption}
+                description={image.description}
                 alt={`Photo-${image.id}`}
                 id = {image.id}
                 key={image.id}
               />
             ))}
+          
+          <NewPhotoTemplate />
         </div>
       </Route>
 

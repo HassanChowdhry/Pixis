@@ -1,6 +1,5 @@
 .modal {
   z-index: 1; 
-  padding-top: 50px; 
   left: 0;
   top: 0;
   width: 100%; 
@@ -12,7 +11,7 @@
 }
 
 .modal-content, .link {
-  width: 55vw;
+  width: 75vw;
   height: 75vh;
 }
 .modal-content:hover {
@@ -21,7 +20,7 @@
  
 .location {
   display: inline-flex;
-  width: 55%;
+  width: 75%;
   justify-content: right;
   font-size: smaller;
   color: #FEF5ED;

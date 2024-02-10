@@ -1,10 +1,12 @@
 /* eslint-disable import/extensions */
 import express from 'express';
+import cors from 'cors';
 
 import { getPhoto, getPhotos, createPhoto } from './database.js';
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get('/api/photos', async (req, res) => {
   const notes = await getPhotos();
