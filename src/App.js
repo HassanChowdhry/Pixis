@@ -23,6 +23,7 @@ function App() {
     };
 
     fetch(
+      //TODO: change when integration to AWS
       "http://localhost:8080/api/photos",
       requestOptions
     )

@@ -52,8 +52,8 @@ function PhotoUploadForm(props) {
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
         <input type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
-        <input type="file" onChange={handleImageChange} />
-        {preview && <img className="form-image" src={preview} alt="Preview" accept="image/*" />}
+        <input type="file" onChange={handleImageChange} accept="image/*" />
+        {preview && <img className="form-image" src={preview} alt="Preview" />}
         <button type="submit">Submit</button>
       </form>
     </div>

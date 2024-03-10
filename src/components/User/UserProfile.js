@@ -1,5 +1,5 @@
 import "./UserProfile.css";
-import photo from "../../Images/picture.jpeg";
+import photo from "../../Images/picture.png";
 
 function UserProfile() {
   const onClickHandler = () => {
