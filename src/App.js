@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import UserProfile from "./components/User/UserProfile";
-import Photos from "./components/gallery/Photos";
-import Picture from "./components/Picture";
+import UserProfile from "./Components/User/UserProfile.js";
+import Photos from "./Components/Gallery/Photos.js";
+import Picture from "./Components/Picture.js";
 import "./App.css";
 
 export const DataContext = React.createContext();
