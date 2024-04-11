@@ -3,7 +3,7 @@ import photo from "../../Images/Hassan-Picture.webp";
 
 function UserProfile() {
   const onClickHandler = () => {
-    window.open("https://hassanchowdhry.github.io/Portfolio/", "_blank")
+    window.open("https://hassanchowdhryportfolio.web.app", "_blank")
   };
 
   return (
@@ -15,9 +15,8 @@ function UserProfile() {
       <strong> Hassan Chowdhry</strong>
 
       <span>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam obcaecati
-        modi exercitationem a cumque consequuntur fugit eius quaerat? Laborum,
-        odit.
+        Hey there!!
+        Welcome to my Photo Gallery App. We are still under construction.
       </span>
     </div>
   );
