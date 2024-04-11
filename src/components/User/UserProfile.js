@@ -1,10 +1,28 @@
+import { useState, useEffect } from "react";
 import "./UserProfile.css";
 import photo from "../../Images/picture.png";
+import CreateModal from "../CreatePhoto/CreateModal.js";
 
 function UserProfile() {
   const onClickHandler = () => {
     window.open("https://portfolio-729d5.web.app/about", "_blank")
   };
+
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  useEffect(() => {
+    if (modal) {
+      document.body.style.overflow = 'hidden';
+    
+    } else {
+      document.body.style.overflow = 'scroll';
+    }
+
+  }, [modal ]);
 
   return (
     <div className="profile">
@@ -13,12 +31,20 @@ function UserProfile() {
       </div>
 
       <strong> Hassan Chowdhry</strong>
+      <p>
+        Hey there!!
+        Welcome to my Photo Gallery App. We are still under construction.
+      </p>
 
-      <span>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam obcaecati
-        modi exercitationem a cumque consequuntur fugit eius quaerat? Laborum,
-        odit.
-      </span>
+      <button className="user-add-photo" onClick={toggleModal}>
+        Add Photo
+      </button>
+
+      {modal && (
+      <CreateModal
+        onClick={toggleModal}
+      />
+    )}
     </div>
   );
 }

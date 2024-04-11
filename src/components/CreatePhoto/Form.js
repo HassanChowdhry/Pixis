@@ -14,7 +14,6 @@ function PhotoUploadForm(props) {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    // Handle the form submission here
     console.log(
       `description: ${description}, location: ${location}, preview: ${file}`
     );
@@ -28,7 +27,7 @@ function PhotoUploadForm(props) {
     myHeaders.append("Origin", window.origin);
     
     const formData = new FormData();
-    formData.append('photo', file); // 'photo' is the key multer uses to process the file
+    formData.append('photo', file); // photo is what multer uses to process the file
     formData.append('location', location);
     formData.append('description', description);
 

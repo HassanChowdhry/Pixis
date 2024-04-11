@@ -8,28 +8,31 @@
   background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.9); 
   position: fixed;
+
 }
 
 .modal-content, .link {
   width: 75vw;
   height: 75vh;
+  justify-self: center;
 }
 .modal-content:hover {
   opacity: 75%;
 }
  
 .location {
+  margin-top: 3em;
   display: inline-flex;
   width: 75%;
   justify-content: right;
-  font-size: smaller;
+  font-size: large;
   color: #FEF5ED;
 }
 
 .caption {
   display: inline-flex;
   justify-content: center;
-  width: 50%;
+  font-size: larger;
   margin-top: 0.5rem;
   color: #FEF5ED;
 }

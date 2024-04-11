@@ -5,7 +5,6 @@ import UserProfile from "./Components/User/UserProfile.js";
 import Photos from "./Components/Gallery/Photos.js";
 import Picture from "./Components/Picture.js";
 import "./App.css";
-import NewPhotoTemplate from "./Components/CreatePhoto/NewPhotoTemplate.js";
 
 export const DataContext = React.createContext();
 
@@ -58,7 +57,6 @@ function App() {
               />
             ))}
           
-          <NewPhotoTemplate />
         </div>
       </Route>
 
