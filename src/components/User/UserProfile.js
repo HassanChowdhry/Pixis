@@ -5,7 +5,7 @@ import CreateModal from "../CreatePhoto/CreateModal.js";
 
 function UserProfile() {
   const onClickHandler = () => {
-    window.open("https://portfolio-729d5.web.app/about", "_blank")
+    window.open("https://hassanchowdhryportfolio.web.app", "_blank")
   };
 
   const [modal, setModal] = useState(false);
