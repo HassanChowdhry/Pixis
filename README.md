@@ -14,4 +14,4 @@ A website for preserving your favorite photos, complete with a separate template
 
 ### Here is the Link to the Website:
 
-[Link to Website](https://d17o0fjvg61p4q.cloudfront.net)
+[Link to Website]()
