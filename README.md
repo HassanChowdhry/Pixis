@@ -6,14 +6,13 @@ A website for preserving your favorite photos, complete with a separate template
 
 ## This Website is developed using the following:
 
-- React
+- ReactJS
+- NodeJS
 - Express.js
-- Node.js
 - MySQL
-- HTML/CSS
+- CSS
 - Amazon Web Services (AWS)
-- Firebase
 
 ## Here is the Link to the Website
 
-[Link to Website](https://d17o0fjvg61p4q.cloudfront.net)
+[Link to Website]()

@@ -21,3 +21,14 @@ INSERT INTO photos (source, `location`, `description`)
     ('https://compote.slate.com/images/908ae1e8-b923-44c5-85b4-145b12100b4e.jpg', 'Naran, Pakistan', 'Fairy Meadows, known for being the base camp for the mountain due to its difficult trek to the top.');
 
     
+
+/*
+
+  CREATE DATABASE photo_gallery;
+  
+  CREATE USER 'hassan'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Needlehead1!';
+
+  GRANT ALL PRIVILEGES ON photo_gallery.* TO 'hassan'@'localhost';
+
+  DB_URL = ""
+*/
