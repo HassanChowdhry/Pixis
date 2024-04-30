@@ -7,17 +7,27 @@ import { getPhoto, getPhotos, createPhoto } from './database.js';
 
 const port = 8080;
 const app = express();
+import path from 'path';
+
 app.use(express.json());
 
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
+
+const _dirname = path.dirname("");
+const buildPath = path.join(_dirname, "../app/build");
+
+app.use(express.static(buildPath));
+
+app.get("/", function (req, res) {
+  res.sendFile(path.join(_dirname, "../app/build/index.html"));
+})
 
 // clean file_name
 function sanitizeFilename(filename) {
   return filename.replace(/[^a-z0-9.]/gi, '_').toLowerCase();
 }
 
-// store to my laptop for now
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads/');

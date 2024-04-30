@@ -16,3 +16,4 @@ A website for preserving your favorite photos, complete with a separate template
 ## Here is the Link to the Website
 
 [Link to Website]()
+
