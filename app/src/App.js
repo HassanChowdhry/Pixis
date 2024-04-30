@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Route, Redirect } from "react-router-dom";
+// import { Route, Redirect } from "react-router-dom";
 
 import UserProfile from "./Components/User/UserProfile.js";
 import Photos from "./Components/Gallery/Photos.js";
-import Picture from "./Components/Picture.js";
+// import Picture from "./Components/junk/Picture.js";
 import "./App.css";
 
 export const DataContext = React.createContext();
@@ -22,43 +22,35 @@ function App() {
     };
 
     fetch(
-      "https://image-gallery-pjks.s3.ca-central-1.amazonaws.com/data.json",
+      //TODO: change when integration to AWS
+      "http://localhost:8080/api/photos",
       requestOptions
     )
       .then((response) => response.json())
       .catch(() => console.log("add backup data"))
-      .then((response) => setData(response));
+      .then((response) => {
+        setData(response);
+        })
   }, []);
 
   return (
     <DataContext.Provider value={data}>
-
-      <Route path='/' exact> 
-        <Redirect to='gallery' />
-      </Route>
-
-      <Route path='/gallery'>
-
         <div className="app">
           <UserProfile />
 
           {data &&
             data.map((image) => (
               <Photos
-                source={image.url}
+                source={image.source}
                 location={image.location}
-                description={image.descreption}
+                description={image.description}
                 alt={`Photo-${image.id}`}
                 id = {image.id}
                 key={image.id}
               />
             ))}
+          
         </div>
-      </Route>
-
-      <Route path='/picture/:id'>
-         <Picture />
-      </Route>
 
     </DataContext.Provider>
   );

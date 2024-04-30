@@ -1,6 +1,9 @@
 body {
   background-color: #282c34;
   color: aliceblue;
+  font-weight: 500;
+  width: 70vw;
+  margin: auto;
 }
 
 .app {
