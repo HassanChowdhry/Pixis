@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./Modal.css";
 
 function Modal(props) {
@@ -13,14 +13,14 @@ function Modal(props) {
 
         <div className="location"> {props.location} </div>
 
-        <Link className="link" to={{ pathname: `/picture/${props.id}`, state : { src: props.src, alt:props.alt, id: props.id, title: props.location, caption : props.description} }} >
-          <img
-            src={props.src}
-            alt={props.alt}
-            title= "go to Template page"
-            className="modal-content"
-          />
-        </Link>
+        {/* <Link className="link" to={{ pathname: `/picture/${props.id}`, state : { src: props.src, alt:props.alt, id: props.id, title: props.location, caption : props.description} }} > */}
+        <img
+          src={props.src}
+          alt={props.alt}
+          title= "go to Template page"
+          className="modal-content"
+        />
+        {/* </Link> */}
 
         <br />
 

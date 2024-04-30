@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Route, Redirect } from "react-router-dom";
+// import { Route, Redirect } from "react-router-dom";
 
 import UserProfile from "./Components/User/UserProfile.js";
 import Photos from "./Components/Gallery/Photos.js";
-import Picture from "./Components/Picture.js";
+// import Picture from "./Components/junk/Picture.js";
 import "./App.css";
 
 export const DataContext = React.createContext();
@@ -35,13 +35,6 @@ function App() {
 
   return (
     <DataContext.Provider value={data}>
-
-      <Route path='/' exact> 
-        <Redirect to='gallery' />
-      </Route>
-
-      <Route path='/gallery'>
-
         <div className="app">
           <UserProfile />
 
@@ -58,11 +51,6 @@ function App() {
             ))}
           
         </div>
-      </Route>
-
-      <Route path='/picture/:id'>
-         <Picture />
-      </Route>
 
     </DataContext.Provider>
   );

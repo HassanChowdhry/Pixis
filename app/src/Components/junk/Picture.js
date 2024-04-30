@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { DataContext } from '../App.js'
+import { DataContext } from '../../App.js'
 import { useContext } from 'react';
 import "./Picture.css";
 import { Redirect } from "react-router-dom";
