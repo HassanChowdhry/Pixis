@@ -10,8 +10,13 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE,
 }).promise();
 
-export async function getPhotos() {
-  const [rows] = await pool.query('SELECT * FROM photos');
+export async function getPhotos(user) {
+  const [rows] = await pool.query('SELECT * FROM photos INNER JOIN user USING(userID) WHERE username=?;', [user]);
+  return rows;
+}
+
+export async function getUserData(user) {
+  const [rows] = await pool.query('SELECT * FROM user WHERE username=?;', [user]);
   return rows;
 }
 

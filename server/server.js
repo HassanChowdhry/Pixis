@@ -3,17 +3,10 @@ import express from 'express';
 import multer from 'multer';
 import cors from 'cors';
 
-import { getPhoto, getPhotos, createPhoto } from './database.js';
+import { getUserData, getPhoto, getPhotos, createPhoto } from './database.js';
 
 const port = 8080;
 const app = express();
-
-import { fileURLToPath } from 'url';
-import path from 'path';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 app.use(express.json());
 
@@ -39,32 +32,45 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-app.get('/api/photos', async (req, res) => {
-  const notes = await getPhotos();
-  res.send(notes);
+app.get('/api/user_data/:user', async (req, res) => {
+  const userData = await getUserData(req.params.user);
+  res.send(userData);
+});
+
+app.get('/api/photos/:user', async (req, res) => {
+  const photos = await getPhotos(req.params.user);
+  res.send(photos);
 });
 
 
 app.get('/api/photo/:id', async (req, res) => {
-  const note = await getPhoto(req.params.id);
-  res.send(note);
+  const photo = await getPhoto(req.params.id);
+  res.send(photo);
 });
 
 app.post('/api/photos', upload.single('photo'), async (req, res) => {
   const { location, description } = req.body;
   
-  //* change on integration to AWS
   const source = `http://localhost:${port}/${req.file.path}`;
-  const note = await createPhoto(source, location, description);
-  res.status(201).send(note);
+  const photo = await createPhoto(source, location, description);
+  res.status(201).send(photo);
 });
 
+/*
+Serve React App as NodeJS app
+import { fileURLToPath } from 'url';
+import path from 'path';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const buildPath = path.join(__dirname, "../app/build");
 app.use(express.static(buildPath));
 
 app.get("/*", function (req, res) {
   res.sendFile(path.resolve(__dirname, '../app/build', 'index.html'));
 })
+*/
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

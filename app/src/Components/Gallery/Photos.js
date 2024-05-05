@@ -10,6 +10,7 @@ function Photos(props) {
   const toggleModal = () => {
     setModal(!modal);
   };
+  console.log(props.caption)
 
   useEffect(() => {
     if (modal) {
@@ -35,7 +36,7 @@ function Photos(props) {
             <Modal
               src={props.source}
               location={props.location}
-              description={props.description}
+              caption={props.caption}
               id = {props.id}
               alt={props.alt}
               onClick={toggleModal}
