@@ -1,3 +1,4 @@
+-- Active: 1714933122124@@127.0.0.1@3306@photo_gallery
 DROP DATABASE IF EXISTS photo_gallery;
 CREATE DATABASE photo_gallery;
 USE photo_gallery;
@@ -7,7 +8,8 @@ CREATE TABLE user (
   email VARCHAR(100) UNIQUE NOT NULL,
   firstName VARCHAR(100) NOT NULL,
   lastName VARCHAR(100) NOT NULL,
-  bio VARCHAR(2000) NOT NULL
+  password VARCHAR(100) NOT NULL,
+  bio VARCHAR(2000)
   -- googleID --add attr,
   -- username,
   -- email,
@@ -22,10 +24,10 @@ CREATE TABLE photos (
   FOREIGN KEY (userID) REFERENCES user(userID)
 );
 
-INSERT INTO user
-  VALUES
-    ("1", "mohammedchowdhry11@gmail.com", "Hassan", "Chowdhry", "Hey there!! Welcome to my Photo Gallery App. We are still under construction."),
-    ("2", "hassanchowdhry123@gmail.com", "Muhammad", "Ishtiaq", "Hey there!! Welcome to my Photo Gallery App. We are still under construction. This is my user testing");
+-- INSERT INTO user
+--   VALUES
+--     ("1", "yapper@gmail.com", "Hassan", "Chowdhry", ,"Hey there!! Welcome to my Photo Gallery App. We are still under construction."),
+--     ("2", "mail@gmail.com", "Muhammad", "Ishtiaq", "Hey there!! Welcome to my Photo Gallery App. We are still under construction. This is my user testing");
 
 INSERT INTO photos (source, location, caption, userID)
   VALUES
@@ -38,3 +40,6 @@ INSERT INTO photos (source, location, caption, userID)
     ('https://vid.alarabiya.net/images/2018/04/03/7a451f2d-2257-4d9a-9eb9-358cc333b512/7a451f2d-2257-4d9a-9eb9-358cc333b512_16x9_1200x676.JPG', 'Abu Dhabi, UAE', 'The empty quarter is an uninhabitable part of the desert, with arid dryness and year round drought.', "1"),
     ('https://cdn.shortpixel.ai/spai/q_glossy+ex_1+ret_img+to_webp/https://irfanclicks.com/wp-content/uploads/2021/02/shuweihat-island-abu-dhabi-6-1030x579.jpg', 'Ruwais, UAE', 'Shuweihat island is a small island off the coast and one of the wonders of the world (not really).',"1"),
     ('https://compote.slate.com/images/908ae1e8-b923-44c5-85b4-145b12100b4e.jpg', 'Naran, Pakistan', 'Fairy Meadows, known for being the base camp for the mountain due to its difficult trek to the top.', "2");
+
+SELECT * FROM user;
+SELECT * FROM photos;

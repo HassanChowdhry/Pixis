@@ -15,11 +15,6 @@ export async function getPhotos(user) {
   return rows;
 }
 
-export async function getUserData(user) {
-  const [rows] = await pool.query('SELECT * FROM user WHERE username=?;', [user]);
-  return rows;
-}
-
 export async function getPhoto(id) {
   const [row] = await pool.query('SELECT * FROM photos WHERE id = ?', [id]);
   return row[0];
@@ -35,10 +30,25 @@ export async function createPhoto(source, location, caption) {
   return getPhoto(id);
 }
 
+export async function getUserData(email) {
+  const [rows] = await pool.query('SELECT * FROM user WHERE email=?;', [email]);
+  return rows;
+}
+
+export async function postUserData(firstName, lastName, email, hashed_password) {
+  const bio = "Defaulted for now";
+  const [rows] = await pool.query(
+    `INSERT INTO user (email, firstName, lastName, password, bio)
+      Value (?, ?, ?, ?, ?);
+    `, [email, firstName, lastName, hashed_password, bio]);
+  
+  return getUserData(email);
+}
+
 export async function userExists(email) {
   const [res] = await pool.query(`
     SELECT * FROM user
-      WHERE username=?
+      WHERE email=?
   `, [email]);
   return res.length === 1;
 }

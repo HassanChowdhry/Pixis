@@ -2,11 +2,16 @@
 import express from 'express';
 import multer from 'multer';
 import cors from 'cors';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv'; dotenv.config();
 
-import { getUserData, getPhoto, getPhotos, createPhoto, userExists } from './database.js';
+import { getUserData, getPhoto, getPhotos, createPhoto, userExists, postUserData } from './database.js';
 
 const port = 8080;
 const app = express();
+
+const jwtSecretKey = process.env.jwtSecretKey;
 
 app.use(cors());
 app.use(express.json())
@@ -66,9 +71,17 @@ app.post('/auth/signup', async (req, res) => {
 
   // lookup user in database using email
   if (await userExists(email)) {
-    console.log("bro real")
+    res.status(401).json({ message: 'User already exists' })
   } else {
-    console.log("bro not real")
+    bcrypt.hash(password, 10, async function(err, hash) {
+      console.log({ firstName, lastName, email, password: hash })
+      
+      const user = await postUserData(firstName, lastName, email, hash);
+
+      let loginData = { email, signInTime: Date.now() };
+      const token = jwt.sign(loginData, jwtSecretKey);
+      res.status(200).json({ message: 'success', token });
+    })
   }
 });
 
@@ -77,14 +90,28 @@ app.post('/auth/login', async (req, res) => {
 
   // lookup user in database using email
   if (await userExists(email)) {
-    console.log("bro real")
+    const user = (await getUserData(email))[0];
+    console.log(user)
+    bcrypt.compare(password, user.password, function(err, result) {
+      if (!result) {
+        return res.status(401).json({ message: 'Invalid Password' })
+      } else {
+        let loginData = {
+          email, signInTime: Date.now(),
+        }
+
+        const token = jwt.sign(loginData, jwtSecretKey);
+        res.status(200).json({ message: 'success', token });
+      }
+    })
   } else {
-    console.log("bro not real")
+    // fix this
+    res.status(401).json({ message: 'User does not exist' })
   }
-  
-  // if found compare hashed password and generate Token for user
-  // send error that user not found
 });
+
+app.post('/auth/verify', (req, res) => {
+})
 
 
 /*
