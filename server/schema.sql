@@ -4,7 +4,7 @@ USE photo_gallery;
 
 CREATE TABLE user (
   userID INT PRIMARY KEY AUTO_INCREMENT,
-  username VARCHAR(100) UNIQUE,
+  email VARCHAR(100) UNIQUE NOT NULL,
   firstName VARCHAR(100) NOT NULL,
   lastName VARCHAR(100) NOT NULL,
   bio VARCHAR(2000) NOT NULL
@@ -24,8 +24,8 @@ CREATE TABLE photos (
 
 INSERT INTO user
   VALUES
-    ("1", "hassan", "Hassan", "Chowdhry", "Hey there!! Welcome to my Photo Gallery App. We are still under construction."),
-    ("2", "Not Hassan", "Muhammad", "Ishtiaq", "Hey there!! Welcome to my Photo Gallery App. We are still under construction. This is my user testing");
+    ("1", "mohammedchowdhry11@gmail.com", "Hassan", "Chowdhry", "Hey there!! Welcome to my Photo Gallery App. We are still under construction."),
+    ("2", "hassanchowdhry123@gmail.com", "Muhammad", "Ishtiaq", "Hey there!! Welcome to my Photo Gallery App. We are still under construction. This is my user testing");
 
 INSERT INTO photos (source, location, caption, userID)
   VALUES

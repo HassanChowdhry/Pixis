@@ -2,7 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import UserPage from "./Components/User/UserPage.js";
 import Home from "./Components/Login/Home.js"
 import Login from './Components/Login/Login.js';
-import { useEffect, useState } from 'react'
+import Signup from './Components/Login/Signup.js';
+import { useEffect, useState } from 'react';
 import "./App.css";
 
 function App() {
@@ -17,8 +18,9 @@ function App() {
       </Route> */}
       <Route path="/" element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
       <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+      <Route path="/signup" element={<Signup setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
 
-      {/* <Route path='/:user' element={<UserPage/>} /> */}
+      <Route path='/:user' element={<UserPage/>} />
     </Routes>
   </>
   );

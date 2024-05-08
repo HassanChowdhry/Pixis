@@ -6,8 +6,12 @@ const Home = (props) => {
   const { loggedIn, email } = props
   const navigate = useNavigate()
 
-  const onButtonClick = () => {
-    // You'll update this function later
+  const onLogInClick = () => {
+    navigate('/login')
+  }
+
+  const onSignUpClick = () => {
+    navigate('/signup')
   }
 
   return (
@@ -20,7 +24,13 @@ const Home = (props) => {
         <input
           className={'inputButton'}
           type="button"
-          onClick={onButtonClick}
+          onClick={onSignUpClick}
+          value="Sign Up"
+        />
+        <input
+          className={'inputButton'}
+          type="button"
+          onClick={onLogInClick}
           value={loggedIn ? 'Log out' : 'Log in'}
         />
         {loggedIn ? <div>Your email address is {email}</div> : <div />}

@@ -35,7 +35,7 @@
 
 .buttonContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   height: 260px;
@@ -60,9 +60,10 @@
   border-radius: 8px;
   border: 1px solid grey;
   padding-left: 8px;
+  margin: 10px;
 }
 
-input[type='button'] {
+.inputButton {
   border: none;
   background: cornflowerblue;
   color: white;
@@ -70,5 +71,31 @@ input[type='button'] {
   margin: 8px;
   font-size: 24px;
   border-radius: 8px;
+  font-weight: 550;
   cursor: pointer;
+}
+
+.inputButton[value='Sign Up'] {
+  background-color: white;
+  color: cornflowerblue;
+}
+
+.login{
+  height: 48px;
+  width: 400px;
+}
+
+.sign {
+  height: 48px;
+  width: 400px;
+}
+
+.sign-login {
+  background: cornflowerblue;
+  color: white;
+}
+
+.sign-login {
+  background-color: white;
+  color: cornflowerblue;
 }

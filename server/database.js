@@ -25,12 +25,20 @@ export async function getPhoto(id) {
   return row[0];
 }
 
-export async function createPhoto(source, location, description) {
+export async function createPhoto(source, location, caption) {
   const [res] = await pool.query(`
-    INSERT INTO photos (source, location, description)
+    INSERT INTO photos (source, location, caption)
       Value (?, ?, ?)
-  `, [source, location, description]);
+  `, [source, location, caption]);
 
   const id = res.insertId;
   return getPhoto(id);
+}
+
+export async function userExists(email) {
+  const [res] = await pool.query(`
+    SELECT * FROM user
+      WHERE username=?
+  `, [email]);
+  return res.length === 1;
 }
