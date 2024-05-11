@@ -38,7 +38,6 @@ const Login = (props) => {
       setPasswordError('The password must be 8 characters or longer')
       return
     }
-
     await logIn();
   }
 
@@ -57,11 +56,21 @@ const Login = (props) => {
       headers: myHeaders,
       body: body
     })      
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status >= 400) {
+        throw new Error(response.statusText);
+      }
+      return response.json()
+    })
     .then((data) => {
-      console.log(data);
+      localStorage.setItem('user', JSON.stringify({ email, token: data.token }))
+      props.setLoggedIn(true);
+      props.setEmail(email);
+      // navigate to path
+      navigate(`/${email}`);
     })
     .catch((error) => {
+      window.alert('Wrong email or password');
       console.error(`Error: ${error}`);
     });
   };
@@ -96,14 +105,13 @@ const Login = (props) => {
         <label className="errorLabel">{passwordError}</label>
       </div>
       <br />
-      <div className={'inputContainer'}>
-        <input className={'inputButton login'} type="button" onClick={onButtonClick} value={'Log in'} />
-        <input
-          className={'inputButton login'}
-          type="button"
-          onClick={onSignUpClick}
-          value="Sign Up"
-        />
+      <div className='buttonContainer'>
+        <button className='user-button' type="button" onClick={onButtonClick}>
+          Log In
+        </button>
+        <button className='user-button' onClick={onSignUpClick}>
+          Sign Up
+        </button>
       </div>
     </div>
   )

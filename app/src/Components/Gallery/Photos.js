@@ -10,7 +10,6 @@ function Photos(props) {
   const toggleModal = () => {
     setModal(!modal);
   };
-  console.log(props.caption)
 
   useEffect(() => {
     if (modal) {

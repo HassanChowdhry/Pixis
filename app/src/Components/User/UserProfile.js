@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import "./UserProfile.css";
 import photo from "../../Images/picture.png";
 import CreateModal from "../CreatePhoto/CreateModal.js";
@@ -11,17 +12,17 @@ function UserProfile({ userData }) {
 
   const [modal, setModal] = useState(false);
 
-  console.log("In user.js")
-  console.log(userData.first_name)
-  const { first_name, last_name, bio } = userData
-  // const first_name = "Hassan";
-  // const last_name = "Chowdhry";
-  // const bio = "Hey there!! Welcome to my Photo Gallery App. We are still under construction."
-  const fullname = first_name + " " + last_name;
+  const navigate = useNavigate();
+  const { firstName, lastName, bio } = userData
+  const fullname = firstName + " " + lastName;
   
   const toggleModal = () => {
     setModal(!modal);
   };
+
+  const onHomeHandler = () => {
+    navigate("/");
+  }
 
   useEffect(() => {
     if (modal) {
@@ -44,13 +45,18 @@ function UserProfile({ userData }) {
         {bio}
       </p>
 
-      <button className="user-add-photo" onClick={toggleModal}>
-        Add Photo
-      </button>
+      <div className="btn-container">
+        <button className="user-button" onClick={toggleModal}>
+          Add Photo
+        </button>
+        <button className="user-button" onClick={onHomeHandler}>
+          Home
+        </button>
+      </div>
 
       {modal && (
       <CreateModal
-        onClick={toggleModal}
+        onClick={toggleModal} data={userData}
       />
     )}
     </div>

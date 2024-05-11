@@ -57,12 +57,10 @@ app.get('/api/photo/:id', async (req, res) => {
 });
 
 app.post('/api/photos', upload.single('photo'), async (req, res) => {
-  const { location, caption } = req.body;
-
-  console.log(req.body)
+  const { location, caption, userID } = req.body;
   
   const source = `http://localhost:${port}/${req.file.path}`;
-  const photo = await createPhoto(source, location, caption);
+  const photo = await createPhoto(source, location, caption, userID);
   res.status(201).send(photo);
 });
 
@@ -91,7 +89,6 @@ app.post('/auth/login', async (req, res) => {
   // lookup user in database using email
   if (await userExists(email)) {
     const user = (await getUserData(email))[0];
-    console.log(user)
     bcrypt.compare(password, user.password, function(err, result) {
       if (!result) {
         return res.status(401).json({ message: 'Invalid Password' })
@@ -105,12 +102,26 @@ app.post('/auth/login', async (req, res) => {
       }
     })
   } else {
-    // fix this
+    // should throw an error that is caught by frontend
     res.status(401).json({ message: 'User does not exist' })
   }
 });
 
 app.post('/auth/verify', (req, res) => {
+  const token = 'jwt-token';
+  const authToken = req.headers[token]
+  try {
+    const verified = jwt.verify(authToken, jwtSecretKey)
+    if (verified) {
+      return res.status(200).json({ status: 'logged in', message: 'success' })
+    } else {
+      // Access Denied
+      return res.status(401).json({ status: 'invalid auth', message: 'error' })
+    }
+  } catch (error) {
+    // Access Denied
+    return res.status(401).json({ status: 'invalid auth', message: 'error' })
+  }
 })
 
 

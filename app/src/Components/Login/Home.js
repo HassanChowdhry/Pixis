@@ -6,8 +6,15 @@ const Home = (props) => {
   const { loggedIn, email } = props
   const navigate = useNavigate()
 
-  const onLogInClick = () => {
-    navigate('/login')
+  const onLogButtonClick = () => {
+    if (loggedIn) {
+      // navigate to user profile
+      // localStorage.removeItem('user');
+      // props.setLoggedIn(false);
+      navigate(`/${email}`)
+    } else {
+      navigate('/login')
+    }
   }
 
   const onSignUpClick = () => {
@@ -16,25 +23,19 @@ const Home = (props) => {
 
   return (
     <div className="mainContainer">
-      <div className={'titleContainer'}>
-        <div>Welcome!</div>
+      <div className='titleContainer'>
+        <h2>Welcome!</h2>
       </div>
-      <div>This is the home page.</div>
-      <div className={'buttonContainer'}>
-        <input
-          className={'inputButton'}
-          type="button"
-          onClick={onSignUpClick}
-          value="Sign Up"
-        />
-        <input
-          className={'inputButton'}
-          type="button"
-          onClick={onLogInClick}
-          value={loggedIn ? 'Log out' : 'Log in'}
-        />
+      <h2>This is the home page.</h2>
+      <div className='buttonContainer'>
+        <button className='user-button' onClick={onSignUpClick}>
+          Sign Up
+        </button>
+        <button className='user-button' onClick={onLogButtonClick}>
+          Log In
+        </button>
+      </div>
         {loggedIn ? <div>Your email address is {email}</div> : <div />}
-      </div>
     </div>
   )
 }

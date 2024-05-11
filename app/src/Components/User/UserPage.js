@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UserProfile from "./UserProfile.js";
 import Photos from "../Gallery/Photos.js";
+import Loader from "../UI/Loader.js";
 
 function UserPage() {
-  console.log("loaded")
   const [photoData, setPhotoData] = useState(null);
   const [userData, setUserData] = useState(null);
   const { user } = useParams();
-  // console.log(user)
 
   useEffect(() => {
     let myHeaders = new Headers();
@@ -25,11 +24,9 @@ function UserPage() {
       requestOptions
     )
     .then((response) => response.json())
-    .catch(() => console.log("add backup data"))
+    .catch((err) => console.error("err: " + err))
     .then((response) => {
       setUserData(response[0]);
-      // console.log("User Data")
-      // console.log(!response[0])
       })
 
     fetch(
@@ -40,9 +37,6 @@ function UserPage() {
     .catch(() => console.log("add backup data"))
     .then((response) => {
       setPhotoData(response);
-      // console.log("Photo")
-      // console.log(!response)
-      // console.log(!response)
       })
   }, [user]);
 
@@ -64,7 +58,7 @@ function UserPage() {
             ))}
         </div>
 
-        {!userData && <div> Not loaded </div>}
+        {!userData && <Loader />}
     </>
   );
 }

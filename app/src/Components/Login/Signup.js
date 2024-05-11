@@ -80,7 +80,10 @@ const Signup = (props) => {
     })      
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      localStorage.setItem('user', JSON.stringify({ email, token: data.token }))
+      props.setLoggedIn(true);
+      props.setEmail(email);
+      navigate(`/${email}`);
     })
     .catch((error) => {
       console.error(`Error: ${error}`);
@@ -133,9 +136,9 @@ const Signup = (props) => {
           />
           <label className="errorLabel">{passwordError}</label>
         </div>
-        <div className={'inputContainer'}>
-          <button className={'inputButton sign sign-sign'} type="submit"> Sign Up </button>
-          <button className={'inputButton sign sign-login'} type="button" onClick={onLoginClick}>Log In</button>
+        <div className='buttonContainer'>
+          <button className='user-button'> Sign Up </button>
+          <button className='user-button' onClick={onLoginClick}>Log In</button>
         </div>
       </form>
       

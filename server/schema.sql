@@ -10,9 +10,6 @@ CREATE TABLE user (
   lastName VARCHAR(100) NOT NULL,
   password VARCHAR(100) NOT NULL,
   bio VARCHAR(2000)
-  -- googleID --add attr,
-  -- username,
-  -- email,
 );
 
 CREATE TABLE photos (
