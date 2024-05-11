@@ -2,11 +2,10 @@ import { useState } from 'react';
 import "./Form.css"
 
 function PhotoUploadForm(props) {
-  const [description, setDescription] = useState('');
+  const [caption, setCaption] = useState('');
   const [location, setLocation] = useState('');
   const [file, setFile] = useState();
   const [preview, setPreview] = useState();
-
   const handleImageChange = (e) => {
     setFile(e.target.files[0]);
     setPreview(URL.createObjectURL(e.target.files[0]));
@@ -15,7 +14,7 @@ function PhotoUploadForm(props) {
   const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(
-      `description: ${description}, location: ${location}, preview: ${file}`
+      `caption: ${caption}, location: ${location}, preview: ${file}`
     );
 
     await postPicture()
@@ -29,7 +28,8 @@ function PhotoUploadForm(props) {
     const formData = new FormData();
     formData.append('photo', file); // photo is what multer uses to process the file
     formData.append('location', location);
-    formData.append('description', description);
+    formData.append('caption', caption);
+    formData.append('userID', props.data.userID);
 
     fetch("http://localhost:8080/api/photos", {
       method: "POST",
@@ -38,7 +38,6 @@ function PhotoUploadForm(props) {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       window.location.reload();
     })
     .catch((error) => {
@@ -48,12 +47,12 @@ function PhotoUploadForm(props) {
 
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-        <input type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
-        <input type="file" onChange={handleImageChange} accept="image/*" />
+      <form className='photo-form' onSubmit={handleSubmit}>
+        <input className='inputBox' type="text" placeholder="Caption" value={caption} onChange={(e) => setCaption(e.target.value)} />
+        <input className='inputBox' type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
+        <input className='fileBox' type="file" onChange={handleImageChange} accept="image/*" />
         {preview && <img className="form-image" src={preview} alt="Preview" />}
-        <button type="submit">Submit</button>
+        <button className='user-button create-photo-button' type="submit">Submit</button>
       </form>
     </div>
 

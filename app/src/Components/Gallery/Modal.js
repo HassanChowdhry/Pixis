@@ -24,7 +24,7 @@ function Modal(props) {
 
         <br />
 
-        <div className="caption"> {props.description} </div>
+        <div className="caption"> {props.caption} </div>
       </section>
       </div>
     

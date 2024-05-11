@@ -35,7 +35,7 @@ function Photos(props) {
             <Modal
               src={props.source}
               location={props.location}
-              description={props.description}
+              caption={props.caption}
               id = {props.id}
               alt={props.alt}
               onClick={toggleModal}

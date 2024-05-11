@@ -6,7 +6,7 @@ A website for preserving your favorite photos, complete with a separate template
 
 ## This Website is developed using the following:
 
-- ReactJS
+- React
 - NodeJS
 - Express.js
 - MySQL

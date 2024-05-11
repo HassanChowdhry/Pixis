@@ -13,7 +13,7 @@ function Picture() {
     return <Redirect to="/"/>
   }
 
-  const { source, alt, location, description } = pictureMetaData ?? {};
+  const { source, alt, location, caption } = pictureMetaData ?? {};
 
   return (
     pictureMetaData?.source  && 

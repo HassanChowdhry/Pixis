@@ -1,15 +1,16 @@
 import Form from "./Form.js";
+import "./Form.css";
 
 function CreateModal(props) {
   return (
     
     <div className="modal" >
 
-      <span onClick={props.onClick} className="close">
+      <div onClick={props.onClick} className="close">
         &times;
-      </span>
+      </div>
       
-      <Form onClick={props.onClick} />
+      <Form onClick={props.onClick} {...props}/>
 
     </div>
     
