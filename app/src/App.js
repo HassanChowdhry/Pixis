@@ -6,6 +6,21 @@ import Signup from './Components/Login/Signup.js';
 import { useEffect, useState } from 'react';
 import "./App.css";
 
+/*
+TODO:
+1) Add Navbar with Logout / Home / ETC
+TODO:
+2) Update UI (Gallery, Signup, Login Pages)
+TODO:
+3) Deny access to anyone who is not the user in localstorage when accessing by params
+TODO:
+4) Switch from email to username
+TODO:
+5) Integrate to AWS. [(Server to EC2), (FrontEnd to S3), (Upload Stoare to S3), (User Auth to Incognito || Google Auth || Firebase Auth)]
+TODO:
+6) Think of other fixes
+*/
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
