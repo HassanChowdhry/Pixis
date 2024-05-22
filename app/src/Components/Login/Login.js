@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import "./Home.css";
+import Navbar from '../UI/Navbar.js';
+import "./Login.css";
 
 const Login = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
-  const onSignUpClick = () => {
-    navigate('/signup')
-  }
-
+  
   const navigate = useNavigate()
+
+  const navLinks = [
+    { text: "Home", url: "/"},
+    { text: "Sign Up", url: "/signup"}
+  ]
 
   const onButtonClick = async() => {
     // Set initial error values to empty
@@ -51,7 +54,7 @@ const Login = (props) => {
       password
     });
     
-    fetch("http://localhost:8080/auth/login", {
+    fetch(`http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/auth/login`, {
       method: "POST",
       headers: myHeaders,
       body: body
@@ -76,44 +79,41 @@ const Login = (props) => {
   };
   
   return (
-    <div className={'mainContainer'}>
-      <div className={'titleContainer'}>
-        <div>Login</div>
+    <>
+      <Navbar links={navLinks}/>
+      <div className='mainContainer'>
+        <div className='titleContainer'>
+          <div>Login</div>
+        </div>
+        <div className='inputContainer'>
+          <input
+            value={email}
+            placeholder="Enter your email here"
+            type='email'
+            onChange={(ev) => setEmail(ev.target.value)}
+            className={'inputBox'}
+            required
+          />
+          <label className="errorLabel">{emailError}</label>
+        </div>
+        <div className='inputContainer'>
+          <input
+            value={password}
+            type='password'
+            placeholder="Enter your password here"
+            onChange={(ev) => setPassword(ev.target.value)}
+            className={'inputBox'}
+            required
+          />
+          <label className="errorLabel">{passwordError}</label>
+        </div>
+        <div className='buttonContainer'>
+          <button className='user-button' type="button" onClick={onButtonClick}>
+            Log In
+          </button>
+        </div>
       </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={email}
-          placeholder="Enter your email here"
-          type='email'
-          onChange={(ev) => setEmail(ev.target.value)}
-          className={'inputBox'}
-          required
-        />
-        <label className="errorLabel">{emailError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={password}
-          type='password'
-          placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
-          className={'inputBox'}
-          required
-        />
-        <label className="errorLabel">{passwordError}</label>
-      </div>
-      <br />
-      <div className='buttonContainer'>
-        <button className='user-button' type="button" onClick={onButtonClick}>
-          Log In
-        </button>
-        <button className='user-button' onClick={onSignUpClick}>
-          Sign Up
-        </button>
-      </div>
-    </div>
+    </>
   )
 }
 

@@ -1,42 +1,57 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import './Home.css';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../UI/Navbar.js';
+import './Login.css';
 
 const Home = (props) => {
   const { loggedIn, email } = props
   const navigate = useNavigate()
+  const navLinks = [
+    { text: "Sign Up", url: "/signup"},
+    { text: "Log In", url: "/login"}
+  ]
 
-  const onLogButtonClick = () => {
-    if (loggedIn) {
-      // navigate to user profile
-      // localStorage.removeItem('user');
-      // props.setLoggedIn(false);
-      navigate(`/${email}`)
-    } else {
-      navigate('/login')
-    }
-  }
-
-  const onSignUpClick = () => {
-    navigate('/signup')
+  const onLogOutHandler = () => {
+      localStorage.removeItem('user');
+      props.setLoggedIn(false);
   }
 
   return (
-    <div className="mainContainer">
-      <div className='titleContainer'>
-        <h2>Welcome!</h2>
+    <>
+      {loggedIn && <Navbar links={navLinks}/>}
+      <div className="mainContainer">
+        <div className='titleContainer'>
+          <h2>Welcome!</h2>
+        </div>
+        <h2>This is the home page.</h2>
+        {loggedIn && 
+          <div className='buttonContainer div-continue'>
+            <button 
+              style={{ width: 'auto', padding: '10px 30px' }} 
+              className='user-button btn-continue'
+              onClick={() => navigate(`/${email}`)}
+            >
+              Continue as <em>{email}</em>?
+            </button>
+            <button
+              className='user-button'
+              onClick={onLogOutHandler}
+            >
+
+              Log Out
+            </button>
+          </div>}
+        {!loggedIn && 
+          <div className='buttonContainer'>
+            <button className='user-button' onClick={() => navigate('/signup')}>
+              Sign Up
+            </button>
+            <button className='user-button' onClick={() => navigate('/login')}>
+              Log In
+            </button>
+          </div>
+        }
       </div>
-      <h2>This is the home page.</h2>
-      <div className='buttonContainer'>
-        <button className='user-button' onClick={onSignUpClick}>
-          Sign Up
-        </button>
-        <button className='user-button' onClick={onLogButtonClick}>
-          Log In
-        </button>
-      </div>
-        {loggedIn ? <div>Your email address is {email}</div> : <div />}
-    </div>
+    </>
   )
 }
 

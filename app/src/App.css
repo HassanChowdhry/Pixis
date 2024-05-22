@@ -2,8 +2,8 @@ body {
   background-color: #282c34;
   color: aliceblue;
   font-weight: 500;
-  width: 70vw;
   margin: auto;
+  height: 100vh;
 }
 
 .app {
@@ -35,6 +35,7 @@ body {
   --_p: 100%;
   color: var(--alt);
   transition: background-position .4s, background-size 0s;
+  cursor: pointer;
 }
 .user-button:active {
   box-shadow: 0 0 9e9q inset #0009; 

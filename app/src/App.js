@@ -5,7 +5,6 @@ import Login from './Components/Login/Login.js';
 import Signup from './Components/Login/Signup.js';
 import { useEffect, useState } from 'react';
 import "./App.css";
-
 /*
 TODO:
 1) Add Navbar with Logout / Home / ETC
@@ -26,7 +25,8 @@ function App() {
   const [email, setEmail] = useState('');
   
   useEffect(() => {
-
+    console.log(process.env.REACT_APP_SERVER_IP)
+    console.log(process.env.REACT_APP_SERVER_PORT)
     const user = (JSON.parse(localStorage.getItem('user')));
 
     if (!user || !user.token) {
@@ -34,16 +34,24 @@ function App() {
       return;
     }
 
-    fetch('http://localhost:8080/auth/verify', {
+    fetch(`http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/auth/verify`, {
       method: "POST",
       headers: {
         'jwt-token': user.token
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status >= 401) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
       .then((data) => {
         setLoggedIn('success' === data.message);
         setEmail(user.email || '');
+      })
+      .catch((error) => {
+        window.alert("Access Denied");
       })
     
   }, []);
@@ -51,9 +59,6 @@ function App() {
   return (
   <>
     <Routes>
-      {/* <Route path='/' exact> 
-        <Redirect to='/hassan' />
-      </Route> */}
       <Route path="/" element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
       <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
       <Route path="/signup" element={<Signup setLoggedIn={setLoggedIn} setEmail={setEmail} />} />

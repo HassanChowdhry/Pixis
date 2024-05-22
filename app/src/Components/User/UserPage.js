@@ -20,7 +20,7 @@ function UserPage() {
     };
 
     fetch(
-      `http://localhost:8080/api/user_data/${user}`,
+      `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/user_data/${user}`,
       requestOptions
     )
     .then((response) => response.json())
@@ -30,7 +30,7 @@ function UserPage() {
       })
 
     fetch(
-      `http://localhost:8080/api/photos/${user}`,
+      `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/photos/${user}`,
       requestOptions
     )
     .then((response) => response.json())
