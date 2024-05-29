@@ -26,8 +26,16 @@ export async function createPhoto(source, location, caption, userID) {
       Value (?, ?, ?, ?)
   `, [source, location, caption, userID]);
 
+  
   const id = res.insertId;
   return getPhoto(id);
+}
+
+export async function deletePhoto(id) {
+  const [res] = await pool.query(`
+    DELETE FROM photos 
+      WHERE photoId = ?;
+  `, [id]);
 }
 
 export async function getUserData(email) {

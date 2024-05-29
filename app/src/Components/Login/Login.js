@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import "./Home.css";
+import { LoggedInContext } from '../../context/LoggedInContext.js';
+import "./Login.css";
 
-const Login = (props) => {
-  const [email, setEmail] = useState('')
+const Login = () => {
+  const [email, setCurrEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
-  const onSignUpClick = () => {
-    navigate('/signup')
-  }
-
+  
+  const { setLoggedIn, setEmail } = useContext(LoggedInContext);
   const navigate = useNavigate()
 
   const onButtonClick = async() => {
@@ -51,7 +50,7 @@ const Login = (props) => {
       password
     });
     
-    fetch("http://localhost:8080/auth/login", {
+    fetch(`http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/auth/login`, {
       method: "POST",
       headers: myHeaders,
       body: body
@@ -63,9 +62,9 @@ const Login = (props) => {
       return response.json()
     })
     .then((data) => {
-      localStorage.setItem('user', JSON.stringify({ email, token: data.token }))
-      props.setLoggedIn(true);
-      props.setEmail(email);
+      sessionStorage.setItem('user', JSON.stringify({ email, token: data.token }))
+      setLoggedIn(true);
+      setEmail(email);
       // navigate to path
       navigate(`/${email}`);
     })
@@ -76,42 +75,39 @@ const Login = (props) => {
   };
   
   return (
-    <div className={'mainContainer'}>
-      <div className={'titleContainer'}>
-        <div>Login</div>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={email}
-          placeholder="Enter your email here"
-          type='email'
-          onChange={(ev) => setEmail(ev.target.value)}
-          className={'inputBox'}
-          required
-        />
-        <label className="errorLabel">{emailError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={password}
-          type='password'
-          placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
-          className={'inputBox'}
-          required
-        />
-        <label className="errorLabel">{passwordError}</label>
-      </div>
-      <br />
-      <div className='buttonContainer'>
-        <button className='user-button' type="button" onClick={onButtonClick}>
-          Log In
-        </button>
-        <button className='user-button' onClick={onSignUpClick}>
-          Sign Up
-        </button>
+    <div className='flex'>
+      {/* <Navbar links={navLinks}/> */}
+      <div className='mainContainer'>
+        <div className='titleContainer'>
+          <div>Login</div>
+        </div>
+        <div className='inputContainer'>
+          <input
+            value={email}
+            placeholder="Enter your email here"
+            type='email'
+            onChange={(ev) => setCurrEmail(ev.target.value)}
+            className={'inputBox'}
+            required
+          />
+          <label className="errorLabel">{emailError}</label>
+        </div>
+        <div className='inputContainer'>
+          <input
+            value={password}
+            type='password'
+            placeholder="Enter your password here"
+            onChange={(ev) => setPassword(ev.target.value)}
+            className={'inputBox'}
+            required
+          />
+          <label className="errorLabel">{passwordError}</label>
+        </div>
+        <div className='buttonContainer'>
+          <button className='user-button' type="button" onClick={onButtonClick}>
+            Log In
+          </button>
+        </div>
       </div>
     </div>
   )

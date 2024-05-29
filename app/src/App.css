@@ -1,9 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   background-color: #282c34;
   color: aliceblue;
   font-weight: 500;
-  width: 70vw;
   margin: auto;
+  height: 100vh;
 }
 
 .app {
@@ -35,8 +39,19 @@ body {
   --_p: 100%;
   color: var(--alt);
   transition: background-position .4s, background-size 0s;
+  cursor: pointer;
 }
 .user-button:active {
   box-shadow: 0 0 9e9q inset #0009; 
   background-color: var(--c);
+}
+
+.inputBox {
+  height: 48px;
+  width: 400px;
+  font-size: large;
+  border-radius: 8px;
+  border: 1px solid grey;
+  color: black;
+  padding: 5px;
 }

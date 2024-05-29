@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import "./UserProfile.css";
+import "./User.css";
 import photo from "../../Images/picture.png";
 import CreateModal from "../CreatePhoto/CreateModal.js";
 
@@ -8,21 +7,29 @@ import CreateModal from "../CreatePhoto/CreateModal.js";
 function UserProfile({ userData }) {
   const onClickHandler = () => {
     window.open("https://hassanchowdhryportfolio.web.app", "_blank")
-  };
+  }
 
   const [modal, setModal] = useState(false);
 
-  const navigate = useNavigate();
-  const { firstName, lastName, bio } = userData
+  const { email, firstName, lastName, bio } = userData
   const fullname = firstName + " " + lastName;
   
   const toggleModal = () => {
-    setModal(!modal);
-  };
+    const user = (JSON.parse(sessionStorage.getItem('user')));
+    console.log(user)
+    if (!user || !user.token) {
+      window.alert("Log in to upload photo.")
+      return;
+    }
 
-  const onHomeHandler = () => {
-    navigate("/");
-  }
+    if (user.email !== email) {
+      window.alert("Access Denied");
+      return;
+    }
+
+    setModal(!modal);
+    
+  };
 
   useEffect(() => {
     if (modal) {
@@ -35,30 +42,27 @@ function UserProfile({ userData }) {
   }, [modal]);
 
   return (
-    <div className="profile">
-      <div className="image-container">
-        <img src={photo} alt="" onClick={onClickHandler} />
-      </div>
+      <div className="profile">
+        <div className="image-container">
+          <img src={photo} alt="" onClick={onClickHandler} />
+        </div>
 
-      <strong> {fullname} </strong>
-      <p>
-        {bio}
-      </p>
+        <strong> {fullname} </strong>
+        <p>
+          {bio}
+        </p>
 
-      <div className="btn-container">
-        <button className="user-button" onClick={toggleModal}>
-          Add Photo
-        </button>
-        <button className="user-button" onClick={onHomeHandler}>
-          Home
-        </button>
-      </div>
+        <div className="btn-container">
+          <button className="user-button" onClick={toggleModal}>
+            Add Photo
+          </button>
+        </div>
 
-      {modal && (
-      <CreateModal
-        onClick={toggleModal} data={userData}
-      />
-    )}
+        {modal && (
+        <CreateModal
+          onClick={toggleModal} data={userData}
+        />
+      )}
     </div>
   );
 }

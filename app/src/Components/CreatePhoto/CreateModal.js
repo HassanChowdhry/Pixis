@@ -1,5 +1,5 @@
 import Form from "./Form.js";
-import "./Form.css";
+import "./CreatePhoto.css";
 
 function CreateModal(props) {
   return (

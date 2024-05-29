@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import Modal from "./Modal.js";
 import Image from "./Image.js";
-import "./Photos.css";
 
 function Photos(props) {
   const [modal, setModal] = useState(false);
@@ -22,7 +21,7 @@ function Photos(props) {
  }, [modal ]);
 
   return (
-    <div className="box">
+    <div className="flex items-center align-middle justify-center">
     
         <Image
           src={props.source}

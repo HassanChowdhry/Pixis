@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import "./Home.css";
-
-const Signup = (props) => {
+import { LoggedInContext } from '../../context/LoggedInContext.js';
+import "./Login.css";
+  
+const Signup = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setCurrEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const [firstNameError, setFirstNameError] = useState('')
@@ -14,11 +15,8 @@ const Signup = (props) => {
   const [passwordError, setPasswordError] = useState('')
   
   const navigate = useNavigate()
+  const { setLoggedIn, setEmail } = useContext(LoggedInContext);
   
-  const onLoginClick = () => {
-    navigate('/login')
-  }
-
   const handleSubmit = async(e) => {
     e.preventDefault()
     // Set initial error values to empty
@@ -73,75 +71,82 @@ const Signup = (props) => {
       password
     });
     
-    fetch("http://localhost:8080/auth/signup", {
+    fetch(`http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/auth/signup`, {
       method: "POST",
       headers: myHeaders,
       body: body
     })      
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status >= 400) {
+        throw new Error(response.statusText);
+      }
+      return response.json()
+    })
     .then((data) => {
-      localStorage.setItem('user', JSON.stringify({ email, token: data.token }))
-      props.setLoggedIn(true);
-      props.setEmail(email);
-      navigate(`/${email}`);
+      sessionStorage.setItem('user', JSON.stringify({ email, token: data.token }))
+      setLoggedIn(true);
+      setEmail(email);
+      // navigate(`/${email}`);
+      navigate(`/edit`);
     })
     .catch((error) => {
+      window.alert('User already exists please log in');
       console.error(`Error: ${error}`);
     });
   };
 
   return (
-    <div className={'mainContainer'}>
-      <div className={'titleContainer'}>
-        <div>Sign Up</div>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className={'inputContainer'}>
+    <div className='flex'>
+      <div className='mainContainer'>
+        <div className='titleContainer'>
+          <div>Sign Up</div>
+        </div>
+        <div className='inputContainer'>
           <input
             value={firstName}
             placeholder="Enter your first name"
             onChange={(ev) => setFirstName(ev.target.value)}
-            className={'inputBox'}
+            className='inputBox'
             required
           />
           <label className="errorLabel">{firstNameError}</label>
+        </div>
+        <div className='inputContainer'>
           <input
             value={lastName}
             placeholder="Enter your last name"
             onChange={(ev) => setLastName(ev.target.value)}
-            className={'inputBox'}
+            className='inputBox'
             required
           />
           <label className="errorLabel">{lastNameError}</label>
         </div>
-        <div className={'inputContainer'}>
+        <div className='inputContainer'>
           <input
             value={email}
             placeholder="Enter your email here"
             type='email'
-            onChange={(ev) => setEmail(ev.target.value)}
-            className={'inputBox'}
+            onChange={(ev) => setCurrEmail(ev.target.value)}
+            className='inputBox'
             required
           />
           <label className="errorLabel">{emailError}</label>
         </div>
-        <div className={'inputContainer'}>
+        <div className='inputContainer'>
           <input
             value={password}
             type='password'
             placeholder="Enter your password here"
             onChange={(ev) => setPassword(ev.target.value)}
-            className={'inputBox'}
+            className='inputBox'
             required
           />
           <label className="errorLabel">{passwordError}</label>
         </div>
         <div className='buttonContainer'>
-          <button className='user-button'> Sign Up </button>
-          <button className='user-button' onClick={onLoginClick}>Log In</button>
+          <button className='user-button' onClick={handleSubmit}> Sign Up </button>
         </div>
-      </form>
-      
+      </div>
     </div>
   )
 }

@@ -20,7 +20,7 @@ function UserPage() {
     };
 
     fetch(
-      `http://localhost:8080/api/user_data/${user}`,
+      `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/user_data/${user}`,
       requestOptions
     )
     .then((response) => response.json())
@@ -30,7 +30,7 @@ function UserPage() {
       })
 
     fetch(
-      `http://localhost:8080/api/photos/${user}`,
+      `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/photos/${user}`,
       requestOptions
     )
     .then((response) => response.json())
@@ -41,25 +41,27 @@ function UserPage() {
   }, [user]);
 
   return (
-    <>
-        <div className="app">
-          {userData && <UserProfile userData={userData}/>}
+    <div className="check">
+          <div>
+            {userData && <UserProfile userData={userData}/>}
+          </div>
 
-          {photoData &&
-            photoData.map((image) => (
-              <Photos
-                source={image.source}
-                location={image.location}
-                caption={image.caption}
-                alt={`Photo-${image.id}`}
-                id = {image.id}
-                key={image.id}
-              />
-            ))}
+          <div>
+            {photoData &&
+              photoData.map((image) => (
+                <Photos
+                  source={image.source}
+                  location={image.location}
+                  caption={image.caption}
+                  alt={`Photo-${image.id}`}
+                  id = {image.id}
+                  key={image.id}
+                />
+              ))}
         </div>
 
         {!userData && <Loader />}
-    </>
+    </div>
   );
 }
 
