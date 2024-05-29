@@ -35,10 +35,10 @@ export default function Navbar() {
               <div>
                 <button 
                   type='button'
-                  className='text-gray-300 h-16 bg-gray-900 hover:bg-gray-700 hover:text-white rounded-xl px-6 py-2 text-lg font-bold'
+                  className='text-gray-300 h-14 bg-gray-900 hover:bg-gray-700 hover:text-white rounded-xl px-6 py-2 text-lg font-bold'
                   onClick={onLogOutHandler}
                 >
-                  Log Out
+                  Sign Out
                 </button>
               </div>
           </div>
