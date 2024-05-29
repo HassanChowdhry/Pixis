@@ -3,31 +3,26 @@ import UserPage from "./Components/User/UserPage.js";
 import Home from "./Components/Login/Home.js"
 import Login from './Components/Login/Login.js';
 import Signup from './Components/Login/Signup.js';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import ProfileUpdateForm from './Components/Login/ProfileUpdateForm.js'
 import "./App.css";
+import Navbar from './Components/UI/Navbar.js';
+import { LoggedInContext } from './context/LoggedInContext.js';
+
 /*
 TODO:
-1) Add Navbar with Logout / Home / ETC
+2) FIX LOGIN/SIGNUP/FORM styles
 TODO:
-2) Update UI (Gallery, Signup, Login Pages)
-TODO:
-3) Deny access to anyone who is not the user in localstorage when accessing by params
-TODO:
-4) Switch from email to username
-TODO:
-5) Integrate to AWS. [(Server to EC2), (FrontEnd to S3), (Upload Stoare to S3), (User Auth to Incognito || Google Auth || Firebase Auth)]
-TODO:
-6) Think of other fixes
+3) Integrate to AWS. [(FrontEnd to S3), (User Auth to Incognito || Google Auth || Firebase Auth)]
 */
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [email, setEmail] = useState('');
+  const { setLoggedIn, email, setEmail } = useContext(LoggedInContext);
   
   useEffect(() => {
     console.log(process.env.REACT_APP_SERVER_IP)
     console.log(process.env.REACT_APP_SERVER_PORT)
-    const user = (JSON.parse(localStorage.getItem('user')));
+    const user = (JSON.parse(sessionStorage.getItem('user')));
 
     if (!user || !user.token) {
       setLoggedIn(false);
@@ -57,13 +52,15 @@ function App() {
   }, []);
   
   return (
-  <>
+  <> 
+    <Navbar />
     <Routes>
-      <Route path="/" element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
-      <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
-      <Route path="/signup" element={<Signup setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
 
       <Route path='/:user' element={<UserPage/>} />
+      <Route path='/edit' element={<ProfileUpdateForm/>} />
     </Routes>
   </>
   );

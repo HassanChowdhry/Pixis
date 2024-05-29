@@ -1,32 +1,27 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../UI/Navbar.js';
+import {LoggedInContext } from '../../context/LoggedInContext.js';
 import './Login.css';
 
-const Home = (props) => {
-  const { loggedIn, email } = props
+const Home = () => {
+  const { loggedIn, setLoggedIn, email } = useContext(LoggedInContext);
   const navigate = useNavigate()
-  const navLinks = [
-    { text: "Sign Up", url: "/signup"},
-    { text: "Log In", url: "/login"}
-  ]
-
   const onLogOutHandler = () => {
-      localStorage.removeItem('user');
-      props.setLoggedIn(false);
+      sessionStorage.removeItem('user');
+      setLoggedIn(false);
   }
 
   return (
-    <>
-      {loggedIn && <Navbar links={navLinks}/>}
+    <div className='flex'>
       <div className="mainContainer">
         <div className='titleContainer'>
-          <h2>Welcome!</h2>
+          <h1>Welcome!</h1>
         </div>
-        <h2>This is the home page.</h2>
+        <h1>This is the home page.</h1>
         {loggedIn && 
-          <div className='buttonContainer div-continue'>
+          <div className='buttonContainer div-continue w-auto'>
             <button 
-              style={{ width: 'auto', padding: '10px 30px' }} 
+              style={{ height: 'auto', width: 'auto', padding: '10px 30px' }} 
               className='user-button btn-continue'
               onClick={() => navigate(`/${email}`)}
             >
@@ -51,7 +46,7 @@ const Home = (props) => {
           </div>
         }
       </div>
-    </>
+    </div>
   )
 }
 

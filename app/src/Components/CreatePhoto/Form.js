@@ -21,10 +21,7 @@ function PhotoUploadForm(props) {
     props.onClick();
   };
 
-  const postPicture = async () => {
-    let myHeaders = new Headers();
-    myHeaders.append("Origin", window.origin);
-    
+  const postPicture = async () => {    
     const formData = new FormData();
     formData.append('photo', file); // photo is what multer uses to process the file
     formData.append('location', location);
@@ -33,7 +30,6 @@ function PhotoUploadForm(props) {
 
     fetch(`http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/photos`, {
       method: "POST",
-      headers: myHeaders,
       body: formData,
     })
     .then((response) => response.json())

@@ -41,25 +41,27 @@ function UserPage() {
   }, [user]);
 
   return (
-    <>
-        <div className="app">
-          {userData && <UserProfile userData={userData}/>}
+    <div className="check">
+          <div>
+            {userData && <UserProfile userData={userData}/>}
+          </div>
 
-          {photoData &&
-            photoData.map((image) => (
-              <Photos
-                source={image.source}
-                location={image.location}
-                caption={image.caption}
-                alt={`Photo-${image.id}`}
-                id = {image.id}
-                key={image.id}
-              />
-            ))}
+          <div>
+            {photoData &&
+              photoData.map((image) => (
+                <Photos
+                  source={image.source}
+                  location={image.location}
+                  caption={image.caption}
+                  alt={`Photo-${image.id}`}
+                  id = {image.id}
+                  key={image.id}
+                />
+              ))}
         </div>
 
         {!userData && <Loader />}
-    </>
+    </div>
   );
 }
 

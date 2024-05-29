@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Navbar from '../UI/Navbar.js';
+import { LoggedInContext } from '../../context/LoggedInContext.js';
 import "./Login.css";
   
-const Signup = (props) => {
+const Signup = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setCurrEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const [firstNameError, setFirstNameError] = useState('')
@@ -15,11 +15,7 @@ const Signup = (props) => {
   const [passwordError, setPasswordError] = useState('')
   
   const navigate = useNavigate()
-
-  const navLinks = [
-    { text: "Home", url: "/"},
-    { text: "Log In", url: "/login"}
-  ]
+  const { setLoggedIn, setEmail } = useContext(LoggedInContext);
   
   const handleSubmit = async(e) => {
     e.preventDefault()
@@ -87,10 +83,11 @@ const Signup = (props) => {
       return response.json()
     })
     .then((data) => {
-      localStorage.setItem('user', JSON.stringify({ email, token: data.token }))
-      props.setLoggedIn(true);
-      props.setEmail(email);
-      navigate(`/${email}`);
+      sessionStorage.setItem('user', JSON.stringify({ email, token: data.token }))
+      setLoggedIn(true);
+      setEmail(email);
+      // navigate(`/${email}`);
+      navigate(`/edit`);
     })
     .catch((error) => {
       window.alert('User already exists please log in');
@@ -99,59 +96,58 @@ const Signup = (props) => {
   };
 
   return (
-    <>
-      <Navbar links={navLinks}/>
-      <div className={'mainContainer'}>
-        <div className={'titleContainer'}>
+    <div className='flex'>
+      <div className='mainContainer'>
+        <div className='titleContainer'>
           <div>Sign Up</div>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className={'inputContainer'}>
-            <input
-              value={firstName}
-              placeholder="Enter your first name"
-              onChange={(ev) => setFirstName(ev.target.value)}
-              className={'inputBox'}
-              required
-            />
-            <label className="errorLabel">{firstNameError}</label>
-            <input
-              value={lastName}
-              placeholder="Enter your last name"
-              onChange={(ev) => setLastName(ev.target.value)}
-              className={'inputBox'}
-              required
-            />
-            <label className="errorLabel">{lastNameError}</label>
-          </div>
-          <div className={'inputContainer'}>
-            <input
-              value={email}
-              placeholder="Enter your email here"
-              type='email'
-              onChange={(ev) => setEmail(ev.target.value)}
-              className={'inputBox'}
-              required
-            />
-            <label className="errorLabel">{emailError}</label>
-          </div>
-          <div className={'inputContainer'}>
-            <input
-              value={password}
-              type='password'
-              placeholder="Enter your password here"
-              onChange={(ev) => setPassword(ev.target.value)}
-              className={'inputBox'}
-              required
-            />
-            <label className="errorLabel">{passwordError}</label>
-          </div>
-          <div className='buttonContainer'>
-            <button className='user-button'> Sign Up </button>
-          </div>
-        </form>
+        <div className='inputContainer'>
+          <input
+            value={firstName}
+            placeholder="Enter your first name"
+            onChange={(ev) => setFirstName(ev.target.value)}
+            className='inputBox'
+            required
+          />
+          <label className="errorLabel">{firstNameError}</label>
+        </div>
+        <div className='inputContainer'>
+          <input
+            value={lastName}
+            placeholder="Enter your last name"
+            onChange={(ev) => setLastName(ev.target.value)}
+            className='inputBox'
+            required
+          />
+          <label className="errorLabel">{lastNameError}</label>
+        </div>
+        <div className='inputContainer'>
+          <input
+            value={email}
+            placeholder="Enter your email here"
+            type='email'
+            onChange={(ev) => setCurrEmail(ev.target.value)}
+            className='inputBox'
+            required
+          />
+          <label className="errorLabel">{emailError}</label>
+        </div>
+        <div className='inputContainer'>
+          <input
+            value={password}
+            type='password'
+            placeholder="Enter your password here"
+            onChange={(ev) => setPassword(ev.target.value)}
+            className='inputBox'
+            required
+          />
+          <label className="errorLabel">{passwordError}</label>
+        </div>
+        <div className='buttonContainer'>
+          <button className='user-button' onClick={handleSubmit}> Sign Up </button>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
 

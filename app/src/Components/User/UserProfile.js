@@ -2,18 +2,12 @@ import { useState, useEffect } from "react";
 import "./User.css";
 import photo from "../../Images/picture.png";
 import CreateModal from "../CreatePhoto/CreateModal.js";
-import Navbar from "../UI/Navbar.js";
 
 // function UserProfile({ first_name, last_name, bio }) {
 function UserProfile({ userData }) {
   const onClickHandler = () => {
     window.open("https://hassanchowdhryportfolio.web.app", "_blank")
-  };
-
-  const navLinks = [
-    { text: "Home", url: "/"},
-    { text: "Log Out", url: "/"}
-  ]
+  }
 
   const [modal, setModal] = useState(false);
 
@@ -21,7 +15,7 @@ function UserProfile({ userData }) {
   const fullname = firstName + " " + lastName;
   
   const toggleModal = () => {
-    const user = (JSON.parse(localStorage.getItem('user')));
+    const user = (JSON.parse(sessionStorage.getItem('user')));
     console.log(user)
     if (!user || !user.token) {
       window.alert("Log in to upload photo.")
@@ -48,8 +42,6 @@ function UserProfile({ userData }) {
   }, [modal]);
 
   return (
-    <>
-      <Navbar links={navLinks}/>
       <div className="profile">
         <div className="image-container">
           <img src={photo} alt="" onClick={onClickHandler} />
@@ -71,8 +63,7 @@ function UserProfile({ userData }) {
           onClick={toggleModal} data={userData}
         />
       )}
-      </div>
-    </>
+    </div>
   );
 }
 

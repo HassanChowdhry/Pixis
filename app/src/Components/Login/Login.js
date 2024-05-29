@@ -1,20 +1,16 @@
-import React, { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Navbar from '../UI/Navbar.js';
+import { LoggedInContext } from '../../context/LoggedInContext.js';
 import "./Login.css";
 
-const Login = (props) => {
-  const [email, setEmail] = useState('')
+const Login = () => {
+  const [email, setCurrEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   
+  const { setLoggedIn, setEmail } = useContext(LoggedInContext);
   const navigate = useNavigate()
-
-  const navLinks = [
-    { text: "Home", url: "/"},
-    { text: "Sign Up", url: "/signup"}
-  ]
 
   const onButtonClick = async() => {
     // Set initial error values to empty
@@ -66,9 +62,9 @@ const Login = (props) => {
       return response.json()
     })
     .then((data) => {
-      localStorage.setItem('user', JSON.stringify({ email, token: data.token }))
-      props.setLoggedIn(true);
-      props.setEmail(email);
+      sessionStorage.setItem('user', JSON.stringify({ email, token: data.token }))
+      setLoggedIn(true);
+      setEmail(email);
       // navigate to path
       navigate(`/${email}`);
     })
@@ -79,8 +75,8 @@ const Login = (props) => {
   };
   
   return (
-    <>
-      <Navbar links={navLinks}/>
+    <div className='flex'>
+      {/* <Navbar links={navLinks}/> */}
       <div className='mainContainer'>
         <div className='titleContainer'>
           <div>Login</div>
@@ -90,7 +86,7 @@ const Login = (props) => {
             value={email}
             placeholder="Enter your email here"
             type='email'
-            onChange={(ev) => setEmail(ev.target.value)}
+            onChange={(ev) => setCurrEmail(ev.target.value)}
             className={'inputBox'}
             required
           />
@@ -113,7 +109,7 @@ const Login = (props) => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -12,12 +12,3 @@
 @keyframes l13{ 
   100%{transform: rotate(1turn)}
 }
-
-.navbar {
-  position: sticky;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  gap: 3em;
-}
