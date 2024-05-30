@@ -96,15 +96,15 @@ function Signup() {
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 pt-32 md:pt-52 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
+          <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight">
             Create your account
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-3">
+          <form className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-md font-medium leading-6">
                 Email address
@@ -171,7 +171,7 @@ function Signup() {
                   Password
                 </label>
               </div>
-              <div className="mt-2">
+              <div className="my-2">
                 <input
                   id="password"
                   value={password}
@@ -191,7 +191,7 @@ function Signup() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="flex w-full justify-center rounded-md bg-primary px-3 py-2 text-md font-semibold leading-6 text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                className="flex w-full justify-center rounded-md bg-primary px-3 py-3 text-md font-semibold leading-6 text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 Create your account
               </button>
@@ -200,7 +200,7 @@ function Signup() {
 
           <p className="mt-10 text-center text-md text-gray-500">
             Already have an account?{' '}
-            <button onClick={() => navigate("/signup")} className="font-semibold leading-6 text-primary hover:text-primary-500">
+            <button onClick={() => navigate("/login")} className="font-semibold leading-6 text-primary hover:text-primary-500">
               Sign in
             </button>
           </p>

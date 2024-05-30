@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import UserPage from "./Components/User/UserPage.js";
-import Home from "./Components/Login/Home.js"
+import Landing from "./Components/Login/Landing.js"
 import Signup from './Components/Login/Signup.js';
 import Signin from './Components/Login/Signin.js';
 import { useEffect, useContext } from 'react';
@@ -15,7 +15,7 @@ TODO:
 */
 
 function App() {
-  const { setLoggedIn, email, setEmail } = useContext(LoggedInContext);
+  const { setLoggedIn, setEmail } = useContext(LoggedInContext);
   
   useEffect(() => {
     console.log(process.env.REACT_APP_SERVER_IP)
@@ -53,10 +53,9 @@ function App() {
   <> 
     <Navbar />
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Signin />} />
       <Route path="/signup" element={<Signup />} />
-      {/* <Route path="/login" element={<Login />} /> */}
 
       <Route path='/:user' element={<UserPage/>} />
       <Route path='/edit' element={<ProfileUpdateForm/>} />

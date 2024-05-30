@@ -25,7 +25,7 @@ export default function Navbar() {
 }
 
   return (
-    <Disclosure as="nav" className="bg-[#282c34] sticky  w-full">
+    <Disclosure as="nav" className="bg-transparent w-full fixed inset-x-0 top-0 z-50">
       {({ open }) => (
         <>
           <div className="flex mx-auto justify-between h-24 items-center max-w-[90rem] p-4 sm:px-6 lg:px-8">

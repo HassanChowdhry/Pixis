@@ -6,6 +6,7 @@ function PhotoUploadForm(props) {
   const [location, setLocation] = useState('');
   const [file, setFile] = useState();
   const [preview, setPreview] = useState();
+  
   const handleImageChange = (e) => {
     setFile(e.target.files[0]);
     setPreview(URL.createObjectURL(e.target.files[0]));

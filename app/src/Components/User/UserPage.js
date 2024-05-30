@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UserProfile from "./UserProfile.js";
-import Photos from "../Gallery/Photos.js";
+import { Gallery } from "../Gallery/Gallery.js";
 import Loader from "../UI/Loader.js";
 
 function UserPage() {
@@ -41,23 +41,15 @@ function UserPage() {
   }, [user]);
 
   return (
-    <div className="check">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 pt-10 lg:px-8">
           <div>
             {userData && <UserProfile userData={userData}/>}
           </div>
 
           <div>
-            {photoData &&
-              photoData.map((image) => (
-                <Photos
-                  source={image.source}
-                  location={image.location}
-                  caption={image.caption}
-                  alt={`Photo-${image.id}`}
-                  id = {image.id}
-                  key={image.id}
-                />
-              ))}
+            {photoData && userData &&
+              <Gallery userData={userData} photoData={photoData} />
+              }
         </div>
 
         {!userData && <Loader />}
