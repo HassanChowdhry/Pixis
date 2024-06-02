@@ -17,7 +17,7 @@ import logo from "../../Images/pixis.png";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { setLoggedIn } = useContext(LoggedInContext)
+  const { setLoggedIn, loggedIn } = useContext(LoggedInContext)
   const onLogOutHandler = () => {
     sessionStorage.removeItem('user');
     setLoggedIn(false)
@@ -33,13 +33,22 @@ export default function Navbar() {
                   <img className='h-16 p-2 cursor-pointer' src={logo} alt='logo' onClick={() => navigate("/")} />
               </div>
               <div>
+                {loggedIn && 
                 <button 
                   type='button'
                   className='text-gray-300 h-14 bg-gray-900 hover:bg-gray-700 hover:text-white rounded-xl px-6 py-2 text-lg font-bold'
                   onClick={onLogOutHandler}
                 >
                   Sign Out
-                </button>
+                </button>}
+                {!loggedIn && 
+                  <button 
+                    type='button'
+                    className='text-gray-300 h-14 bg-gray-900 hover:bg-gray-700 hover:text-white rounded-xl px-6 py-2 text-lg font-bold'
+                    onClick={() => navigate('login')}
+                  >
+                    Sign In
+                  </button>}
               </div>
           </div>
 

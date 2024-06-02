@@ -119,7 +119,7 @@ app.post('/auth/signup', async (req, res) => {
   if (await userExists(email)) {
     res.status(401).json({ message: 'User already exists' })
   } else {
-    // TODO: Hash
+    // TODO: Hash using SHA1
     bcrypt.hash(password, 10, async function(err, hash) {
       console.log({ firstName, lastName, email, password: hash })
       

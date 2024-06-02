@@ -1,6 +1,10 @@
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LoggedInContext } from '../../context/LoggedInContext.js';
+import Wrapper from '../Wrapper.js';
+import { Icon } from 'react-icons-kit';
+import { eyeOff } from 'react-icons-kit/feather/eyeOff.js';
+import { eye } from 'react-icons-kit/feather/eye.js'
 import "./Login.css";
 
 export default function Signin() {
@@ -8,6 +12,19 @@ export default function Signin() {
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
+
+  const [type, setType] = useState('password');
+  const [icon, setIcon] = useState(eyeOff);
+
+  const toggleVisibility = () => {
+    if (type==='password'){
+       setIcon(eye);
+       setType('text')
+    } else {
+       setIcon(eyeOff)
+       setType('password')
+    }
+ }
   
   const { setLoggedIn, setEmail } = useContext(LoggedInContext);
   const navigate = useNavigate()
@@ -75,7 +92,7 @@ export default function Signin() {
   };
   
   return (
-    <>
+    <Wrapper>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 pt-32 md:pt-52 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight">
@@ -117,17 +134,22 @@ export default function Signin() {
                 </div>
               </div>
               <div className="mt-2">
-                <input
-                  id="password"
-                  value={password}
-                  placeholder="Enter your password here"
-                  onChange={(ev) => setPassword(ev.target.value)}
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 placeholder:text-gray-800 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
-                />
+                <div className='flex'>
+                  <input
+                    id="password"
+                    value={password}
+                    placeholder="Enter your password here"
+                    onChange={(ev) => setPassword(ev.target.value)}
+                    name="password"
+                    type={type}
+                    autoComplete="current-password"
+                    required
+                    className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 placeholder:text-gray-800 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
+                  />
+                  <div style={{ color: "gray" }} class="flex justify-around items-center cursor-pointer" onClick={toggleVisibility}>
+                      <Icon class="absolute mr-10" icon={icon} size={25}/>
+                  </div>
+                </div>
                 <label className="errorLabel">{passwordError}</label>
               </div>
             </div>
@@ -151,6 +173,6 @@ export default function Signin() {
           </p>
         </div>
       </div>
-    </>
+    </Wrapper>
   )
 }
