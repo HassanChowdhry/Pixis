@@ -116,7 +116,7 @@ export default function Signin() {
                   placeholder="Enter your email here"
                   onChange={(ev) => setCurrEmail(ev.target.value)}
                   required
-                  className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 placeholder:text-gray-800 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
+                  className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
                 />
                 <label className="errorLabel">{emailError}</label>
               </div>
@@ -144,7 +144,7 @@ export default function Signin() {
                     type={type}
                     autoComplete="current-password"
                     required
-                    className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 placeholder:text-gray-800 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
+                    className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
                   />
                   <div style={{ color: "gray" }} class="flex justify-around items-center cursor-pointer" onClick={toggleVisibility}>
                       <Icon class="absolute mr-10" icon={icon} size={25}/>

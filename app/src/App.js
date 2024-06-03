@@ -18,8 +18,6 @@ function App() {
   const { setLoggedIn, setEmail } = useContext(LoggedInContext);
   
   useEffect(() => {
-    console.log(process.env.REACT_APP_SERVER_IP)
-    console.log(process.env.REACT_APP_SERVER_PORT)
     const user = (JSON.parse(sessionStorage.getItem('user')));
 
     if (!user || !user.token) {

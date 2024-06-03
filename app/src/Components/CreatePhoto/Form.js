@@ -16,9 +16,6 @@ function PhotoUploadForm(props) {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(
-      `caption: ${caption}, location: ${location}, preview: ${file}`
-    );
 
     await postPicture()
     props.onClick();

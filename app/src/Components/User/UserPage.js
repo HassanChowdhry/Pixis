@@ -25,16 +25,14 @@ function UserPage() {
     )
     .then((response) => response.json())
     .catch((err) => console.error("err: " + err))
-    .then((response) => {
-      setUserData(response[0]);
-      })
+    .then((response) => setUserData(response))
 
     fetch(
       `http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/api/photos/${user}`,
       requestOptions
     )
     .then((response) => response.json())
-    .catch(() => console.log("add backup data"))
+    .catch((error) => console.error(error))
     .then((response) => {
       setPhotoData(response);
       })
