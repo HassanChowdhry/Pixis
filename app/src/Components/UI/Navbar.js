@@ -17,7 +17,7 @@ import logo from "../../Images/pixis.png";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { setLoggedIn } = useContext(LoggedInContext)
+  const { setLoggedIn, loggedIn } = useContext(LoggedInContext)
   const onLogOutHandler = () => {
     sessionStorage.removeItem('user');
     setLoggedIn(false)
@@ -25,7 +25,7 @@ export default function Navbar() {
 }
 
   return (
-    <Disclosure as="nav" className="bg-[#282c34] sticky  w-full">
+    <Disclosure as="nav" className="bg-transparent w-full fixed inset-x-0 top-0 z-50">
       {({ open }) => (
         <>
           <div className="flex mx-auto justify-between h-24 items-center max-w-[90rem] p-4 sm:px-6 lg:px-8">
@@ -33,13 +33,22 @@ export default function Navbar() {
                   <img className='h-16 p-2 cursor-pointer' src={logo} alt='logo' onClick={() => navigate("/")} />
               </div>
               <div>
+                {loggedIn && 
                 <button 
                   type='button'
-                  className='text-gray-300 h-16 bg-gray-900 hover:bg-gray-700 hover:text-white rounded-xl px-6 py-2 text-lg font-bold'
+                  className='text-gray-300 h-14 bg-gray-900 hover:bg-gray-700 hover:text-white rounded-xl px-6 py-2 text-lg font-bold'
                   onClick={onLogOutHandler}
                 >
-                  Log Out
-                </button>
+                  Sign Out
+                </button>}
+                {!loggedIn && 
+                  <button 
+                    type='button'
+                    className='text-gray-300 h-14 bg-gray-900 hover:bg-gray-700 hover:text-white rounded-xl px-6 py-2 text-lg font-bold'
+                    onClick={() => navigate('login')}
+                  >
+                    Sign In
+                  </button>}
               </div>
           </div>
 

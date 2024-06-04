@@ -7,20 +7,15 @@ import { eyeOff } from 'react-icons-kit/feather/eyeOff.js';
 import { eye } from 'react-icons-kit/feather/eye.js'
 import "./Login.css";
 
-function Signup() {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+export default function Signin() {
   const [email, setCurrEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const [firstNameError, setFirstNameError] = useState('')
-  const [lastNameError, setLastNameError] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
 
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(eyeOff);
-  
+
   const toggleVisibility = () => {
     if (type==='password'){
        setIcon(eye);
@@ -31,27 +26,15 @@ function Signup() {
     }
  }
   
-  const navigate = useNavigate()
   const { setLoggedIn, setEmail } = useContext(LoggedInContext);
-  
-  const handleSubmit = async() => {
+  const navigate = useNavigate()
+
+  const onButtonClick = async() => {
     // Set initial error values to empty
-    setFirstNameError('')
-    setLastNameError('')
     setEmailError('')
     setPasswordError('')
   
     // Check if the user has entered both fields correctly
-    if ('' === firstName) {
-      setFirstNameError('Please enter your first name')
-      return
-    }
-
-    if ('' === lastName) {
-      setLastNameError('Please enter your last name')
-      return
-    }
-
     if ('' === email) {
       setEmailError('Please enter your email')
       return
@@ -71,23 +54,20 @@ function Signup() {
       setPasswordError('The password must be 8 characters or longer')
       return
     }
+    await logIn();
+  }
 
-    await signUp()
-  };
-
-  const signUp = async() => {
+  const logIn = async() => {
     let myHeaders = new Headers();
     myHeaders.append("Origin", window.origin);
     myHeaders.append("Content-Type", "application/json");
 
     const body = JSON.stringify({
-      firstName,
-      lastName,
       email,
       password
     });
     
-    fetch(`http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/auth/signup`, {
+    fetch(`http://${process.env.REACT_APP_SERVER_IP}:${process.env.REACT_APP_SERVER_PORT}/auth/login`, {
       method: "POST",
       headers: myHeaders,
       body: body
@@ -102,26 +82,26 @@ function Signup() {
       sessionStorage.setItem('user', JSON.stringify({ email, token: data.token }))
       setLoggedIn(true);
       setEmail(email);
-      // navigate(`/${email}`);
-      navigate(`/edit`);
+      // navigate to path
+      navigate(`/${email}`);
     })
     .catch((error) => {
-      window.alert('User already exists please log in');
+      window.alert('Wrong email or password');
       console.error(`Error: ${error}`);
     });
   };
-
+  
   return (
     <Wrapper>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 pt-32 md:pt-52 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight">
-            Create your account
+            Sign in to your account
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-4">
+          <form className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-md font-medium leading-6">
                 Email address
@@ -137,48 +117,8 @@ function Signup() {
                   onChange={(ev) => setCurrEmail(ev.target.value)}
                   required
                   className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
-                  />
+                />
                 <label className="errorLabel">{emailError}</label>
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="first" className="block text-md font-medium leading-6">
-                First Name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="first"
-                  name="first"
-                  type="text"
-                  autoComplete="first name"
-                  value={firstName}
-                  placeholder="Enter your first name here"
-                  onChange={(ev) => setFirstName(ev.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
-                  />
-                <label className="errorLabel">{firstNameError}</label>
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="last" className="block text-md font-medium leading-6">
-                Last Name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="last"
-                  name="last"
-                  type="text"
-                  autoComplete="last name"
-                  value={lastName}
-                  placeholder="Enter your last name here"
-                  onChange={(ev) => setLastName(ev.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
-                  />
-                <label className="errorLabel">{lastNameError}</label>
               </div>
             </div>
 
@@ -187,8 +127,13 @@ function Signup() {
                 <label htmlFor="password" className="block text-md font-medium leading-6">
                   Password
                 </label>
+                <div className="text-md">
+                  <button href="#" className="font-semibold text-primary hover:text-primary-500">
+                    Forgot password?
+                  </button>
+                </div>
               </div>
-              <div className="my-2">
+              <div className="mt-2">
                 <div className='flex'>
                   <input
                     id="password"
@@ -202,7 +147,7 @@ function Signup() {
                     className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset text-gray-800 ring-gray-700 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-md sm:leading-6"
                   />
                   <div style={{ color: "gray" }} class="flex justify-around items-center cursor-pointer" onClick={toggleVisibility}>
-                    <Icon class="absolute mr-10" icon={icon} size={25}/>
+                      <Icon class="absolute mr-10" icon={icon} size={25}/>
                   </div>
                 </div>
                 <label className="errorLabel">{passwordError}</label>
@@ -212,24 +157,22 @@ function Signup() {
             <div>
               <button
                 type="button"
-                onClick={handleSubmit}
+                onClick={onButtonClick}
                 className="flex w-full justify-center rounded-md bg-primary px-3 py-3 text-md font-semibold leading-6 text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
-                Create your account
+                Sign in
               </button>
             </div>
           </form>
 
           <p className="mt-10 text-center text-md text-gray-500">
-            Already have an account?{' '}
-            <button onClick={() => navigate("/login")} className="font-semibold leading-6 text-primary hover:text-primary-500">
-              Sign in
+            Not a member?{' '}
+            <button onClick={() => navigate("/signup")} className="font-semibold leading-6 text-primary hover:text-primary-500">
+              Create an account
             </button>
           </p>
         </div>
       </div>
     </Wrapper>
   )
-};
-
-export default Signup;
+}

@@ -44,14 +44,24 @@ export async function getUserData(email) {
 }
 
 export async function postUserData(firstName, lastName, email, hashed_password) {
-  // TODO: change this
-  const bio = "Defaulted for now";
+  const bio = "";
   const [rows] = await pool.query(
     `INSERT INTO user (email, firstName, lastName, password, bio)
       Value (?, ?, ?, ?, ?);
     `, [email, firstName, lastName, hashed_password, bio]);
   
   return getUserData(email);
+}
+
+export async function updateUserData(userID, bio, pfp) {
+  const [rows] = await pool.query(
+    `UPDATE user
+     SET bio = ?, pfp = ?
+     WHERE userID = ?;`,
+    [bio, pfp, userID]
+  );
+  
+  return rows;
 }
 
 export async function userExists(email) {

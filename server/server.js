@@ -10,7 +10,7 @@ import crypto from 'crypto';
 import sharp from 'sharp';
 import dotenv from 'dotenv'; dotenv.config();
 
-import { getUserData, getPhoto, getPhotos, createPhoto, userExists, postUserData, deletePhoto } from './database.js';
+import { getUserData, getPhoto, getPhotos, createPhoto, userExists, postUserData, deletePhoto, updateUserData } from './database.js';
 
 const port = 8080;
 const app = express();
@@ -48,13 +48,23 @@ app.get('/', (req, res) => {
 
 app.get('/api/user_data/:user', async (req, res) => {
   const userData = await getUserData(req.params.user);
-  res.send(userData);
+  const user = userData[0];
+
+  if (user.pfp) {
+    const getObjectParams = {
+      Bucket: bn,
+      Key: user.pfp
+    }
+    const command = new GetObjectCommand(getObjectParams);
+    const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+    user.pfp = url;
+  }
+
+  res.status(201).send(user)
 });
 
 app.get('/api/photos/:user', async (req, res) => {
   const photos = await getPhotos(req.params.user);
-  console.log(photos)
-  //cconst client = new S3Client(clientParams);
   for (const photo of photos) {
     const getObjectParams = {
       Bucket: bn,
@@ -64,7 +74,7 @@ app.get('/api/photos/:user', async (req, res) => {
     const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
     photo.source = url;
   }
-  res.send(photos);
+  res.status(201).send(photos);
 });
 
 app.get('/api/photo/:id', async (req, res) => {
@@ -86,9 +96,7 @@ app.delete('/api/photo/:id', async(req, res) => {
     Key: photo.source
   }
 
-  console.log("HERE 1")
   const command = new DeleteObjectCommand(params);
-  console.log("HERE 2")
   await s3.send(command);
 
   await deletePhoto(id);
@@ -97,17 +105,40 @@ app.delete('/api/photo/:id', async(req, res) => {
 
 app.post('/api/photos', upload.single('photo'), async (req, res) => {
   const { location, caption, userID } = req.body;
-  const buffer = await sharp(req.file.buffer).resize({height: 1920, widht: 1080, fit: "contain"}).toBuffer();
+  const buffer = await sharp(req.file.buffer).resize({height: 1920, width: 1080, fit: "cover"}).toBuffer();
   const filename = sanitizeFilename()
   const params = {
     Bucket: bn,
-    Key: filename, // change naming convention
+    Key: filename,
     Body: buffer,
     ContentType: req.file.mimetype
   }
   const command = new PutObjectCommand(params);
   await s3.send(command)
   const photo = await createPhoto(filename, location, caption, userID);
+  res.status(201).send(photo);
+});
+
+app.put('/api/user_data/:user', upload.single('photo'), async (req, res) => {
+  const { bio, email } = req.body
+
+  let filename = req.file;
+  if (req.file) {
+    const buffer = await sharp(req.file.buffer).resize({height: 1080, width: 1080, fit: "cover"}).toBuffer();
+    filename = sanitizeFilename();
+    const params = {
+      Bucket: bn,
+      Key: filename,
+      Body: buffer,
+      ContentType: req.file.mimetype
+    }
+    const command = new PutObjectCommand(params);
+    await s3.send(command);
+  }
+
+  const info = await getUserData(email);
+  const id = info[0].userID;
+  const photo = await updateUserData(id, bio, filename);
   res.status(201).send(photo);
 });
 
@@ -119,8 +150,8 @@ app.post('/auth/signup', async (req, res) => {
   if (await userExists(email)) {
     res.status(401).json({ message: 'User already exists' })
   } else {
+    // TODO: Hash using SHA1
     bcrypt.hash(password, 10, async function(err, hash) {
-      console.log({ firstName, lastName, email, password: hash })
       
       const user = await postUserData(firstName, lastName, email, hash);
 

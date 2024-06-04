@@ -1,27 +1,23 @@
 import { Routes, Route } from 'react-router-dom';
 import UserPage from "./Components/User/UserPage.js";
-import Home from "./Components/Login/Home.js"
-import Login from './Components/Login/Login.js';
+import Landing from "./Components/Login/Landing.js"
 import Signup from './Components/Login/Signup.js';
-import { useEffect, useState, useContext } from 'react';
+import Signin from './Components/Login/Signin.js';
+import { useEffect, useContext } from 'react';
 import ProfileUpdateForm from './Components/Login/ProfileUpdateForm.js'
 import "./App.css";
 import Navbar from './Components/UI/Navbar.js';
 import { LoggedInContext } from './context/LoggedInContext.js';
 
 /*
-TODO:
-2) FIX LOGIN/SIGNUP/FORM styles
-TODO:
-3) Integrate to AWS. [(FrontEnd to S3), (User Auth to Incognito || Google Auth || Firebase Auth)]
+TODO: 
+1) Integrate to AWS. [(FrontEnd to S3), (User Auth to Incognito || Google Auth || Firebase Auth)]
 */
 
 function App() {
-  const { setLoggedIn, email, setEmail } = useContext(LoggedInContext);
+  const { setLoggedIn, setEmail } = useContext(LoggedInContext);
   
   useEffect(() => {
-    console.log(process.env.REACT_APP_SERVER_IP)
-    console.log(process.env.REACT_APP_SERVER_PORT)
     const user = (JSON.parse(sessionStorage.getItem('user')));
 
     if (!user || !user.token) {
@@ -55,8 +51,8 @@ function App() {
   <> 
     <Navbar />
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Signin />} />
       <Route path="/signup" element={<Signup />} />
 
       <Route path='/:user' element={<UserPage/>} />

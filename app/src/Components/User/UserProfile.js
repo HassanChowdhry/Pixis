@@ -5,18 +5,15 @@ import CreateModal from "../CreatePhoto/CreateModal.js";
 
 // function UserProfile({ first_name, last_name, bio }) {
 function UserProfile({ userData }) {
-  const onClickHandler = () => {
-    window.open("https://hassanchowdhryportfolio.web.app", "_blank")
-  }
+  const onClickHandler = () => {}
 
   const [modal, setModal] = useState(false);
 
-  const { email, firstName, lastName, bio } = userData
+  const { email, firstName, lastName, bio, pfp } = userData
   const fullname = firstName + " " + lastName;
   
   const toggleModal = () => {
     const user = (JSON.parse(sessionStorage.getItem('user')));
-    console.log(user)
     if (!user || !user.token) {
       window.alert("Log in to upload photo.")
       return;
@@ -44,7 +41,7 @@ function UserProfile({ userData }) {
   return (
       <div className="profile">
         <div className="image-container">
-          <img src={photo} alt="" onClick={onClickHandler} />
+          <img src={pfp ?? photo} alt="" onClick={onClickHandler} />
         </div>
 
         <strong> {fullname} </strong>
