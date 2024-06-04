@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router";
 import "./User.css";
 import photo from "../../Images/picture.png";
 import CreateModal from "../CreatePhoto/CreateModal.js";
@@ -6,6 +7,7 @@ import CreateModal from "../CreatePhoto/CreateModal.js";
 // function UserProfile({ first_name, last_name, bio }) {
 function UserProfile({ userData }) {
   const onClickHandler = () => {}
+  // const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
 
@@ -53,6 +55,9 @@ function UserProfile({ userData }) {
           <button className="user-button" onClick={toggleModal}>
             Add Photo
           </button>
+          {/* <button className="user-button" onClick={() => navigate(`/${email}/edit`)}>
+            Edit Profile
+          </button> */}
         </div>
 
         {modal && (

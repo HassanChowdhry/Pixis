@@ -102,8 +102,8 @@ function Signup() {
       sessionStorage.setItem('user', JSON.stringify({ email, token: data.token }))
       setLoggedIn(true);
       setEmail(email);
-      // navigate(`/${email}`);
-      navigate(`/edit`);
+      navigate(`/${email}/edit`);
+      // navigate(`/edit`);
     })
     .catch((error) => {
       window.alert('User already exists please log in');

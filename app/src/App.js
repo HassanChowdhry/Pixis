@@ -56,7 +56,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
 
       <Route path='/:user' element={<UserPage/>} />
-      <Route path='/edit' element={<ProfileUpdateForm/>} />
+      <Route path='/:user/edit' element={<ProfileUpdateForm/>} />
     </Routes>
   </>
   );

@@ -105,7 +105,7 @@ app.delete('/api/photo/:id', async(req, res) => {
 
 app.post('/api/photos', upload.single('photo'), async (req, res) => {
   const { location, caption, userID } = req.body;
-  const buffer = await sharp(req.file.buffer).resize({height: 1920, width: 1080, fit: "cover"}).toBuffer();
+  const buffer = await sharp(req.file.buffer).resize({fit: "contain"}).toBuffer();
   const filename = sanitizeFilename()
   const params = {
     Bucket: bn,

@@ -39,7 +39,7 @@ function UserPage() {
   }, [user]);
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 pt-10 lg:px-8">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 mt-6 pt-10 lg:px-8">
           <div>
             {userData && <UserProfile userData={userData}/>}
           </div>
