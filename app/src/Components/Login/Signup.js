@@ -93,7 +93,7 @@ function Signup() {
       body: body
     })      
     .then((response) => {
-      if (response.status >= 400) {
+      if (response.status >= 400 && response.status < 500) {
         throw new Error(response.statusText);
       }
       return response.json()
@@ -103,7 +103,6 @@ function Signup() {
       setLoggedIn(true);
       setEmail(email);
       navigate(`/${email}/edit`);
-      // navigate(`/edit`);
     })
     .catch((error) => {
       window.alert('User already exists please log in');

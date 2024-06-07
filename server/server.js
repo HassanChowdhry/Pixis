@@ -79,7 +79,7 @@ app.get('/api/photos/:user', async (req, res) => {
 
 app.get('/api/photo/:id', async (req, res) => {
   const photo = await getPhoto(req.params.id);
-  res.send(photo);
+  res.status(200).send(photo);
 });
 
 app.delete('/api/photo/:id', async(req, res) => {
@@ -150,14 +150,13 @@ app.post('/auth/signup', async (req, res) => {
   if (await userExists(email)) {
     res.status(401).json({ message: 'User already exists' })
   } else {
-    // TODO: Hash using SHA1
     bcrypt.hash(password, 10, async function(err, hash) {
       
       const user = await postUserData(firstName, lastName, email, hash);
 
       let loginData = { email, signInTime: Date.now() };
       const token = jwt.sign(loginData, jwtSecretKey);
-      res.status(200).json({ message: 'success', token });
+      res.status(201).json({ message: 'success', token });
     })
   }
 });

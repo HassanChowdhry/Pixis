@@ -73,7 +73,7 @@ export default function Signin() {
       body: body
     })      
     .then((response) => {
-      if (response.status >= 400) {
+      if (response.status >= 400 && response.status < 500) {
         throw new Error(response.statusText);
       }
       return response.json()

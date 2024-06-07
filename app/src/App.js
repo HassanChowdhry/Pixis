@@ -32,7 +32,7 @@ function App() {
       },
     })
       .then((response) => {
-        if (response.status >= 401) {
+        if (response.status >= 400 && response.status < 500) {
           throw new Error(response.statusText);
         }
         return response.json();
@@ -45,7 +45,7 @@ function App() {
         window.alert("Access Denied");
       })
     
-  }, []);
+  }, [setEmail, setLoggedIn]);
   
   return (
   <> 
