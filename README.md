@@ -45,9 +45,9 @@ To run this project locally, follow these steps:
    ```
    
 5. Navigate to api server
-  ```bash
-  cd ../server
-  ```
+   ```bash
+   cd ../server
+   ```
 
 6. Install the dependencies:
    ```bash
